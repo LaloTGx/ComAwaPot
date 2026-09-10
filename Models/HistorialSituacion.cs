@@ -2,9 +2,9 @@ namespace ComAwaPot.Models;
 
 public class HistorialSituacion
 {
-    public int IdHistorialSituacion { get; set; }
+    public int HistorialSituacionId { get; set; }
 
-    public int IdPersona { get; set; }
+    public int PersonaId { get; set; }
 
     public Situacion Estado { get; set; }
 

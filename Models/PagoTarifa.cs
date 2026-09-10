@@ -2,9 +2,9 @@ namespace ComAwaPot.Models;
 
 public class PagoTarifa
 {
-    public int IdPagoTarifa { get; set; }
+    public int PagoTarifaId { get; set; }
 
-    public int IdPersona { get; set; }
+    public int PersonaId { get; set; }
 
     public DateTime FechaPago { get; set; }
 

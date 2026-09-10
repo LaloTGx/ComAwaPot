@@ -2,7 +2,7 @@ namespace ComAwaPot.Models;
 
 public class AportacionExtraordinaria
 {
-    public int IdAportacionExtraordinaria { get; set; }
+    public int AportacionExtraordinariaId { get; set; }
 
     public string Concepto { get; set; } = string.Empty;
 

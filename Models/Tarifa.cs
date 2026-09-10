@@ -2,7 +2,7 @@ namespace ComAwaPot.Models;
 
 public class Tarifa
 {
-    public int IdTarifa { get; set; }
+    public int TarifaId { get; set; }
 
     public DateTime Periodo { get; set; }
 

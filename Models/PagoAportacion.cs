@@ -2,11 +2,11 @@ namespace ComAwaPot.Models;
 
 public class PagoAportacion
 {
-    public int IdPagoAportacion { get; set; }
+    public int PagoAportacionId { get; set; }
 
-    public int IdAportacionExtraordinaria { get; set; }
+    public int AportacionExtraordinariaId { get; set; }
 
-    public int IdPersona { get; set; }
+    public int PersonaId { get; set; }
 
     public decimal MontoPagado { get; set; }
 

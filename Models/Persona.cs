@@ -2,7 +2,7 @@ namespace ComAwaPot.Models;
 
 public class Persona
 {
-    public int IdPersona { get; set; }
+    public int PersonaId { get; set; }
 
     public string Nombre { get; set; } = string.Empty;
 

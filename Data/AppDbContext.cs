@@ -30,40 +30,40 @@ public class AppDbContext : DbContext
 	    modelBuilder.Entity<Persona>()
 	        .HasMany(p => p.HistorialSituaciones)
 	        .WithOne(h => h.Persona)
-	        .HasForeignKey(h => h.IdPersona);
+	        .HasForeignKey(h => h.PersonaId)
             .OnDelete(DeleteBehavior.Restrict);
 
 	    modelBuilder.Entity<Persona>()
 	        .HasMany(p => p.PagosTarifa)
 	        .WithOne(p => p.Persona)
-	        .HasForeignKey(p => p.IdPersona);
+	        .HasForeignKey(p => p.PersonaId)
             .OnDelete(DeleteBehavior.Restrict);
 
 	    modelBuilder.Entity<Persona>()
 	        .HasMany(p => p.PagosAportacion)
 	        .WithOne(p => p.Persona)
-	        .HasForeignKey(p => p.IdPersona);
+	        .HasForeignKey(p => p.PersonaId)
             .OnDelete(DeleteBehavior.Restrict);
 
 	    // PagoTarifa
 	    modelBuilder.Entity<PagoTarifa>()
 	        .HasMany(p => p.Detalles)
 	        .WithOne(d => d.PagoTarifa)
-	        .HasForeignKey(d => d.IdPagoTarifa);
+	        .HasForeignKey(d => d.PagoTarifaId)
             .OnDelete(DeleteBehavior.Cascade);
 
 	    // DetallePagoTarifa
 	    modelBuilder.Entity<DetallePagoTarifa>()
 	        .HasOne(d => d.Tarifa)
 	        .WithMany()
-	        .HasForeignKey(d => d.IdTarifa);
+	        .HasForeignKey(d => d.TarifaId)
             .OnDelete(DeleteBehavior.Restrict);
 
 	    // AportacionExtraordinaria
 	    modelBuilder.Entity<AportacionExtraordinaria>()
 	        .HasMany(a => a.Pagos)
 	        .WithOne(p => p.AportacionExtraordinaria)
-	        .HasForeignKey(p => p.IdAportacionExtraordinaria);
+	        .HasForeignKey(p => p.AportacionExtraordinariaId)
             .OnDelete(DeleteBehavior.Restrict);
 
 	    // Índices de Persona
