@@ -5,6 +5,11 @@ namespace ComAwaPot.Data;
 
 public class AppDbContext : DbContext
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
+
     public DbSet<Persona> Personas => Set<Persona>();
 
     public DbSet<HistorialSituacion> HistorialSituaciones => Set<HistorialSituacion>();
@@ -19,10 +24,11 @@ public class AppDbContext : DbContext
 
     public DbSet<PagoAportacion> PagosAportacion => Set<PagoAportacion>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=ComAwaPot.db");
-    }
+
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlite("Data Source=ComAwaPot.db");
+    //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
