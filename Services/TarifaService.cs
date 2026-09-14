@@ -14,29 +14,37 @@ public class TarifaService
     }
 
     public async Task<Tarifa?> CrearAsync(Tarifa tarifa)
-	{
-	    using var db = new AppDbContext(_dbOptions);
+    {
+        using var db = new AppDbContext(_dbOptions);
 
-	    var existe = await db.Tarifas
-	        .AnyAsync(t => t.Periodo == tarifa.Periodo);
+        var existe = await db.Tarifas
+            .AnyAsync(t =>
+                t.Tipo == tarifa.Tipo &&
+                t.Periodo == tarifa.Periodo
+            );
 
-	    if (existe)
-	    {
-	        return null;
-	    }
+        if (existe)
+        {
+            return null;
+        }
 
-	    db.Tarifas.Add(tarifa);
-	    await db.SaveChangesAsync();
+        db.Tarifas.Add(tarifa);
+        await db.SaveChangesAsync();
 
-	    return tarifa;
-	}
+        return tarifa;
+    }
 
-    public async Task<Tarifa?> ObtenerPorPeriodoAsync(DateTime periodo)
+    public async Task<Tarifa?> ObtenerPorPeriodoAsync(
+        TipoTarifa tipo,
+        DateTime periodo)
     {
         using var db = new AppDbContext(_dbOptions);
 
         return await db.Tarifas
-            .FirstOrDefaultAsync(t => t.Periodo == periodo);
+            .FirstOrDefaultAsync(t =>
+                t.Tipo == tipo &&
+                t.Periodo == periodo
+            );
     }
 
     public async Task<List<Tarifa>> ObtenerTodasAsync()
@@ -45,6 +53,7 @@ public class TarifaService
 
         return await db.Tarifas
             .OrderBy(t => t.Periodo)
+            .ThenBy(t => t.Tipo)
             .ToListAsync();
     }
 }

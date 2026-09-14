@@ -4,7 +4,7 @@ public class HistorialSituacion
 {
     public int HistorialSituacionId { get; set; }
 
-    public int PersonaId { get; set; }
+    public int TomaId { get; set; }
 
     public Situacion Estado { get; set; }
 
@@ -12,5 +12,5 @@ public class HistorialSituacion
 
     public DateTime? FechaFin { get; set; }
 
-    public Persona Persona { get; set; } = null!;
+    public Toma Toma { get; set; } = null!;
 }
