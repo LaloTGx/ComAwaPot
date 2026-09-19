@@ -26,6 +26,8 @@ public class AppDbContext : DbContext
 
     public DbSet<AportacionExtraordinaria> AportacionesExtraordinarias => Set<AportacionExtraordinaria>();
 
+    public DbSet<AportacionPersona> AportacionesPersonas => Set<AportacionPersona>();
+
     public DbSet<PagoAportacion> PagosAportacion => Set<PagoAportacion>();
 
 
@@ -84,6 +86,22 @@ public class AppDbContext : DbContext
             .HasForeignKey(p => p.PersonaId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // Persona → AportacionPersona
+
+        modelBuilder.Entity<Persona>()
+            .HasMany<AportacionPersona>()
+            .WithOne(ap => ap.Persona)
+            .HasForeignKey(ap => ap.PersonaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // AportacionExtraordinaria → AportacionPersona
+
+        modelBuilder.Entity<AportacionExtraordinaria>()
+            .HasMany(a => a.Personas)
+            .WithOne(ap => ap.AportacionExtraordinaria)
+            .HasForeignKey(ap => ap.AportacionExtraordinariaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         // PagoTarifa → DetallePagoTarifa
 
         modelBuilder.Entity<PagoTarifa>()
@@ -134,6 +152,16 @@ public class AppDbContext : DbContext
             .HasIndex(tt => new { tt.TomaId, tt.TarifaId })
             .IsUnique();
 
+        // AportacionPersona: evitar personas duplicadas
+
+        modelBuilder.Entity<AportacionPersona>()
+            .HasIndex(ap => new
+            {
+                ap.AportacionExtraordinariaId,
+                ap.PersonaId
+            })
+            .IsUnique();
+
         // Precisión de montos
 
         modelBuilder.Entity<Tarifa>()
@@ -149,11 +177,11 @@ public class AppDbContext : DbContext
             .HasPrecision(18, 2);
 
         modelBuilder.Entity<AportacionExtraordinaria>()
-            .Property(a => a.MontoTotal)
+            .Property(a => a.MontoPorPersona)
             .HasPrecision(18, 2);
 
-        modelBuilder.Entity<AportacionExtraordinaria>()
-            .Property(a => a.MontoPorPersona)
+        modelBuilder.Entity<AportacionPersona>()
+            .Property(ap => ap.MontoEsperado)
             .HasPrecision(18, 2);
 
         modelBuilder.Entity<PagoAportacion>()

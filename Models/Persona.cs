@@ -11,4 +11,7 @@ public class Persona
 
     public ICollection<PagoAportacion> PagosAportacion { get; set; }
         = new List<PagoAportacion>();
+
+    public ICollection<AportacionPersona> Aportaciones { get; set; }
+    = new List<AportacionPersona>();
 }

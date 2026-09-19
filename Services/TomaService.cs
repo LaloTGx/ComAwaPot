@@ -14,7 +14,9 @@ public class TomaService
     }
 
     // Crear toma
-    public async Task<Toma?> CrearAsync(Toma toma)
+    public async Task<Toma?> CrearAsync(
+        Toma toma,
+        DateTime? fechaInicioSituacion = null)
     {
         using var db = new AppDbContext(_dbOptions);
 
@@ -37,6 +39,15 @@ public class TomaService
         }
 
         db.Tomas.Add(toma);
+
+        // Crear historial inicial
+        db.HistorialSituaciones.Add(new HistorialSituacion
+        {
+            Toma = toma,
+            Estado = toma.Estado,
+            FechaInicio = fechaInicioSituacion ?? DateTime.Today,
+            FechaFin = null
+        });
 
         await db.SaveChangesAsync();
 
@@ -115,10 +126,65 @@ public class TomaService
         tomaExistente.NumeroContrato = toma.NumeroContrato;
         tomaExistente.Calle = toma.Calle;
         tomaExistente.NumExt = toma.NumExt;
-        tomaExistente.Estado = toma.Estado;
 
         await db.SaveChangesAsync();
 
         return true;
+    }
+
+    // Cambiar situación
+    public async Task<HistorialSituacion?> CambiarSituacionAsync(
+        int tomaId,
+        Situacion nuevoEstado,
+        DateTime fechaInicio)
+    {
+        using var db = new AppDbContext(_dbOptions);
+
+        var toma = await db.Tomas
+            .FirstOrDefaultAsync(t => t.TomaId == tomaId);
+
+        if (toma is null)
+        {
+            return null;
+        }
+
+        // No crear historial si la situación no cambia
+        if (toma.Estado == nuevoEstado)
+        {
+            return null;
+        }
+
+        // Obtener el historial actual
+        var historialActual = await db.HistorialSituaciones
+            .FirstOrDefaultAsync(h =>
+                h.TomaId == tomaId &&
+                h.FechaFin == null
+            );
+
+        if (historialActual is null)
+        {
+            return null;
+        }
+
+        // Cerrar situación anterior
+        historialActual.FechaFin = fechaInicio;
+
+        // Crear nueva situación
+        var nuevoHistorial = new HistorialSituacion
+        {
+            TomaId = tomaId,
+            Estado = nuevoEstado,
+            FechaInicio = fechaInicio,
+            FechaFin = null
+        };
+
+        // Actualizar situación actual de la toma
+        toma.Estado = nuevoEstado;
+
+        db.HistorialSituaciones.Add(nuevoHistorial);
+
+        await db.SaveChangesAsync();
+
+        return nuevoHistorial;
     }
 }
