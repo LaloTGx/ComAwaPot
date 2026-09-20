@@ -2,8 +2,106 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
+        d:DesignWidth="1100"
+        d:DesignHeight="700"
         x:Class="ComAwaPot.MainWindow"
-        Title="ComAwaPot">
-    Welcome to Avalonia!
+        Title="ComAwaPot"
+        Width="1100"
+        Height="700"
+        MinWidth="900"
+        MinHeight="600">
+
+    <Grid ColumnDefinitions="220,*">
+
+        <!-- Navegación -->
+        <Border Grid.Column="0"
+                Background="#18181B">
+
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <!-- Logo -->
+                <StackPanel Grid.Row="0"
+                            Margin="24,28,24,32"
+                            Spacing="4">
+
+                    <TextBlock Text="ComAwaPot"
+                               FontSize="24"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="Comité de agua"
+                               FontSize="13"
+                               Opacity="0.6"/>
+                </StackPanel>
+
+                <!-- Menú -->
+                <StackPanel Grid.Row="1"
+                            Margin="12,0"
+                            Spacing="4">
+
+                    <Button Content="Inicio"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Personas"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Tomas"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Tarifas"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Pagos"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Aportaciones"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                    <Button Content="Reportes"
+                            HorizontalContentAlignment="Left"
+                            Padding="16,12"/>
+
+                </StackPanel>
+
+                <!-- Pie -->
+                <TextBlock Grid.Row="2"
+                           Text="ComAwaPot"
+                           Margin="24,24"
+                           FontSize="12"
+                           Opacity="0.5"/>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Contenido -->
+        <Border Grid.Column="1"
+                Padding="40">
+
+            <StackPanel Spacing="12">
+
+                <TextBlock Text="Inicio"
+                           FontSize="32"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="Bienvenido a ComAwaPot"
+                           FontSize="18"
+                           Opacity="0.8"/>
+
+                <TextBlock Text="Administración del comité de agua"
+                           FontSize="14"
+                           Opacity="0.6"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
 </Window>
