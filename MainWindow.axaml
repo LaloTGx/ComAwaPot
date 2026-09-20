@@ -2,15 +2,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:ComAwaPot.ViewModels"
+        xmlns:views="using:ComAwaPot.Views"
         mc:Ignorable="d"
         d:DesignWidth="1100"
         d:DesignHeight="700"
         x:Class="ComAwaPot.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         Title="ComAwaPot"
         Width="1100"
         Height="700"
         MinWidth="900"
         MinHeight="600">
+
+    <Window.DataTemplates>
+
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PersonasViewModel}">
+            <views:PersonasView />
+        </DataTemplate>
+
+    </Window.DataTemplates>
 
     <Grid ColumnDefinitions="220,*">
 
@@ -40,10 +55,12 @@
                             Spacing="4">
 
                     <Button Content="Inicio"
+                            Command="{Binding MostrarInicioCommand}"
                             HorizontalContentAlignment="Left"
                             Padding="16,12"/>
 
                     <Button Content="Personas"
+                            Command="{Binding MostrarPersonasCommand}"
                             HorizontalContentAlignment="Left"
                             Padding="16,12"/>
 
@@ -84,21 +101,7 @@
         <Border Grid.Column="1"
                 Padding="40">
 
-            <StackPanel Spacing="12">
-
-                <TextBlock Text="Inicio"
-                           FontSize="32"
-                           FontWeight="Bold"/>
-
-                <TextBlock Text="Bienvenido a ComAwaPot"
-                           FontSize="18"
-                           Opacity="0.8"/>
-
-                <TextBlock Text="Administración del comité de agua"
-                           FontSize="14"
-                           Opacity="0.6"/>
-
-            </StackPanel>
+            <ContentControl Content="{Binding CurrentViewModel}"/>
 
         </Border>
 

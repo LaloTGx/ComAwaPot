@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ComAwaPot.Views.HomeView">
+
+    <StackPanel Spacing="12">
+
+        <TextBlock Text="Inicio"
+                   FontSize="32"
+                   FontWeight="Bold"/>
+
+        <TextBlock Text="Bienvenido a ComAwaPot"
+                   FontSize="18"
+                   Opacity="0.8"/>
+
+        <TextBlock Text="Administración del comité de agua"
+                   FontSize="14"
+                   Opacity="0.6"/>
+
+    </StackPanel>
+
+</UserControl>
