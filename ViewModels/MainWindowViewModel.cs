@@ -6,13 +6,15 @@ namespace ComAwaPot.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
 private readonly PersonasViewModel _personasViewModel;
+private readonly TomasViewModel _tomasViewModel;
 
 [ObservableProperty]
 private ObservableObject currentViewModel;
 
-public MainWindowViewModel(PersonasViewModel personasViewModel)
+public MainWindowViewModel(PersonasViewModel personasViewModel, TomasViewModel tomasViewModel)
 {
     _personasViewModel = personasViewModel;
+    _tomasViewModel = tomasViewModel;
 
     currentViewModel = new HomeViewModel();
 }
@@ -31,5 +33,10 @@ private async Task MostrarPersonas()
     CurrentViewModel = _personasViewModel;
 }
 
+[RelayCommand]
+private async Task MostrarTomas()
+{
+    await _tomasViewModel.CargarTomasAsync();
+    CurrentViewModel = _tomasViewModel;
 }
-
+}

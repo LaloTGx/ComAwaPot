@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ComAwaPot.ViewModels"
-             x:Class="ComAwaPot.Views.PersonasView"
-             x:DataType="vm:PersonasViewModel">
+             x:Class="ComAwaPot.Views.TomasView"
+             x:DataType="vm:TomasViewModel">
 
     <Grid RowDefinitions="Auto,Auto,*"
           RowSpacing="24">
@@ -14,46 +14,31 @@
             <StackPanel Grid.Column="0"
                         Spacing="4">
 
-                <TextBlock Text="Personas"
+                <TextBlock Text="Tomas"
                            FontSize="32"
                            FontWeight="Bold"/>
 
-                <TextBlock Text="Administra las personas registradas en el comité."
+                <TextBlock Text="Administra las tomas registradas en el comité."
                            FontSize="16"
                            Opacity="0.7"/>
 
             </StackPanel>
 
             <Button Grid.Column="1"
-                    Content="+ Nueva persona"
-                    Command="{Binding AgregarPersonaCommand}"
+                    Content="+ Nueva toma"
                     Padding="18,10"/>
 
         </Grid>
 
-
         <!-- Búsqueda -->
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,Auto"
-              ColumnSpacing="12">
+        <TextBox Grid.Row="1"
+                 PlaceholderText="Buscar por contrato, persona o calle..."
+                 Text="{Binding TextoBusqueda}"/>
 
-            <TextBox Grid.Column="0"
-                     PlaceholderText="Buscar persona..."
-                     Text="{Binding TextoBusqueda}"/>
-
-            <TextBox Grid.Column="1"
-                     Width="250"
-                     PlaceholderText="Nuevo nombre..."
-                     Text="{Binding NuevoNombre}"/>
-
-        </Grid>
-
-
-        <!-- Contenido -->
+        <!-- Lista + detalle -->
         <Grid Grid.Row="2"
               ColumnDefinitions="2*,*"
               ColumnSpacing="24">
-
 
             <!-- Lista -->
             <Border Grid.Column="0"
@@ -66,26 +51,35 @@
 
                     <!-- Encabezados -->
                     <Grid Grid.Row="0"
-                          ColumnDefinitions="*,100">
+                          ColumnDefinitions="100,*,*,100">
 
                         <TextBlock Grid.Column="0"
-                                   Text="Nombre"
+                                   Text="Contrato"
                                    FontWeight="Bold"
                                    Opacity="0.7"/>
 
                         <TextBlock Grid.Column="1"
-                                   Text="Tomas"
+                                   Text="Persona"
+                                   FontWeight="Bold"
+                                   Opacity="0.7"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="Dirección"
+                                   FontWeight="Bold"
+                                   Opacity="0.7"/>
+
+                        <TextBlock Grid.Column="3"
+                                   Text="Estado"
                                    FontWeight="Bold"
                                    Opacity="0.7"
                                    HorizontalAlignment="Center"/>
 
                     </Grid>
 
-
-                    <!-- Personas -->
+                    <!-- Tomas -->
                     <ScrollViewer Grid.Row="1">
 
-                        <ItemsControl ItemsSource="{Binding PersonasFiltradas}">
+                        <ItemsControl ItemsSource="{Binding TomasFiltradas}">
 
                             <ItemsControl.ItemTemplate>
 
@@ -94,17 +88,25 @@
                                     <Button HorizontalContentAlignment="Stretch"
                                             Padding="12"
                                             Margin="0,0,0,4"
-                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarPersonaCommand}"
+                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
                                             CommandParameter="{Binding}">
 
-                                        <Grid ColumnDefinitions="*,100">
+                                        <Grid ColumnDefinitions="100,*,*,100">
 
                                             <TextBlock Grid.Column="0"
-                                                       Text="{Binding Nombre}"
+                                                       Text="{Binding NumeroContrato}"
                                                        VerticalAlignment="Center"/>
 
                                             <TextBlock Grid.Column="1"
-                                                       Text="{Binding Tomas.Count}"
+                                                       Text="{Binding Persona.Nombre}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Calle}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="3"
+                                                       Text="{Binding Estado}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"/>
 
@@ -124,7 +126,6 @@
 
             </Border>
 
-
             <!-- Detalle -->
             <Border Grid.Column="1"
                     Background="#18181B"
@@ -137,34 +138,24 @@
                                FontSize="20"
                                FontWeight="Bold"/>
 
-
-                    <TextBlock Text="Persona seleccionada"
+                    <TextBlock Text="Toma seleccionada"
                                FontSize="13"
                                Opacity="0.6"/>
 
+                    <TextBlock Text="{Binding TomaSeleccionada.NumeroContrato,
+                                              StringFormat='Contrato: {0}'}"/>
 
-                    <TextBox Text="{Binding NombreEdicion}"
-                             PlaceholderText="Nombre"/>
+                    <TextBlock Text="{Binding TomaSeleccionada.Persona.Nombre,
+                                              StringFormat='Persona: {0}'}"/>
 
+                    <TextBlock Text="{Binding TomaSeleccionada.Calle,
+                                              StringFormat='Calle: {0}'}"/>
 
-                    <Button Content="Guardar cambios"
-                            Command="{Binding GuardarEdicionCommand}"
-                            HorizontalAlignment="Left"
-                            Padding="18,10"/>
+                    <TextBlock Text="{Binding TomaSeleccionada.NumExt,
+                                              StringFormat='Número exterior: {0}'}"/>
 
-
-                    <Border Height="1"
-                            Background="#303036"
-                            Margin="0,8"/>
-
-
-                    <TextBlock Text="Tomas"
-                               FontSize="18"
-                               FontWeight="Bold"/>
-
-
-                    <TextBlock Text="{Binding PersonaSeleccionada.Tomas.Count, StringFormat='Tomas registradas: {0}'}"
-                               Opacity="0.7"/>
+                    <TextBlock Text="{Binding TomaSeleccionada.Estado,
+                                              StringFormat='Estado: {0}'}"/>
 
                 </StackPanel>
 

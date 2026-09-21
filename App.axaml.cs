@@ -23,9 +23,11 @@ public App()
             .Options);
 
     services.AddTransient<PersonaService>();
+    services.AddTransient<TomaService>();
 
     services.AddTransient<MainWindowViewModel>();
     services.AddTransient<PersonasViewModel>();
+    services.AddTransient<TomasViewModel>();
 
     Services = services.BuildServiceProvider();
 }

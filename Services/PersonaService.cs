@@ -14,13 +14,14 @@ public class PersonaService
     }
 
     public async Task<List<Persona>> ObtenerTodasAsync()
-    {
-        using var db = new AppDbContext(_dbOptions);
+{
+    using var db = new AppDbContext(_dbOptions);
 
-        return await db.Personas
-            .OrderBy(p => p.Nombre)
-            .ToListAsync();
-    }
+    return await db.Personas
+        .Include(p => p.Tomas)
+        .OrderBy(p => p.Nombre)
+        .ToListAsync();
+}
 
     public async Task<Persona?> ObtenerPorIdAsync(int personaId)
     {

@@ -93,6 +93,7 @@ public class TomaService
         using var db = new AppDbContext(_dbOptions);
 
         return await db.Tomas
+            .Include(t => t.Persona)
             .Where(t => t.PersonaId == personaId)
             .OrderBy(t => t.NumeroContrato)
             .ToListAsync();
