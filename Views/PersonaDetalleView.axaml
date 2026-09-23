@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.PersonaDetalleView"
+             x:DataType="vm:PersonaDetalleViewModel">
+
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="24">
+
+        <!-- Encabezado -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto">
+
+            <StackPanel Grid.Column="0"
+                        Spacing="4">
+
+                <TextBlock Text="{Binding Persona.NombreCompleto}"
+                           FontSize="32"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="{Binding Tomas.Count,
+                                          StringFormat='Tomas registradas: {0}'}"
+                           FontSize="16"
+                           Opacity="0.7"/>
+
+            </StackPanel>
+
+            <Button Grid.Column="1"
+                    Content="Editar persona"
+                    Padding="18,10"/>
+
+        </Grid>
+
+        <!-- Contenido -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,2*"
+              ColumnSpacing="24">
+
+            <!-- Información -->
+            <Border Grid.Column="0"
+                    Background="#18181B"
+                    CornerRadius="8"
+                    Padding="20">
+
+                <StackPanel Spacing="16">
+
+                    <TextBlock Text="Información"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock Text="Nombre"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
+
+                        <TextBlock Text="{Binding Persona.NombreCompleto}"
+                                   FontSize="17"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Tomas -->
+            <Border Grid.Column="1"
+                    Background="#18181B"
+                    CornerRadius="8"
+                    Padding="20">
+
+                <Grid RowDefinitions="Auto,*"
+                      RowSpacing="16">
+
+                    <Grid Grid.Row="0"
+                          ColumnDefinitions="*,Auto">
+
+                        <TextBlock Text="Tomas"
+                                   FontSize="20"
+                                   FontWeight="Bold"/>
+
+                        <Button Grid.Column="1"
+                                Content="+ Nueva toma"
+                                Padding="14,8"/>
+
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1">
+
+                        <ItemsControl ItemsSource="{Binding Tomas}">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Button HorizontalContentAlignment="Stretch"
+                                            Padding="14"
+                                            Margin="0,0,0,6">
+
+                                        <Grid ColumnDefinitions="120,*,100">
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding NumeroContrato}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Calle}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Estado}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

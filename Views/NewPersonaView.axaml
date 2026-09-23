@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.NewPersonaView"
+             x:DataType="vm:NewPersonaViewModel">
+
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="24">
+
+        <StackPanel Grid.Row="0"
+                    Spacing="4">
+
+            <TextBlock Text="Nueva persona"
+                       FontSize="32"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Registra una nueva persona en el comité."
+                       FontSize="16"
+                       Opacity="0.7"/>
+
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="24"
+                MaxWidth="700"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+
+            <Grid RowDefinitions="Auto,Auto,Auto"
+                  ColumnDefinitions="*,*"
+                  RowSpacing="16"
+                  ColumnSpacing="16">
+
+                <!-- Nombre -->
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0"
+                            Spacing="6">
+
+                    <TextBlock Text="Nombre"/>
+
+                    <TextBox Text="{Binding Nombre}"
+                             PlaceholderText="Nombre"/>
+
+                </StackPanel>
+
+                <!-- Segundo nombre -->
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Spacing="6">
+
+                    <TextBlock Text="Segundo nombre"
+                               Opacity="0.8"/>
+
+                    <TextBox Text="{Binding SegundoNombre}"
+                             PlaceholderText="Opcional"/>
+
+                </StackPanel>
+
+                <!-- Primer apellido -->
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="6">
+
+                    <TextBlock Text="Primer apellido"/>
+
+                    <TextBox Text="{Binding PrimerApellido}"
+                             PlaceholderText="Primer apellido"/>
+
+                </StackPanel>
+
+                <!-- Segundo apellido -->
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="6">
+
+                    <TextBlock Text="Segundo apellido"/>
+
+                    <TextBox Text="{Binding SegundoApellido}"
+                             PlaceholderText="Segundo apellido"/>
+
+                </StackPanel>
+
+                <!-- Guardar -->
+
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Content="Guardar"
+                        Command="{Binding GuardarCommand}"
+                        HorizontalAlignment="Right"
+                        Padding="18,10"/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

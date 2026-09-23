@@ -29,6 +29,14 @@
             <views:TomasView/>
         </DataTemplate>
 
+        <DataTemplate DataType="vm:PersonaDetalleViewModel">
+            <views:PersonaDetalleView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="vm:NewPersonaViewModel">
+            <views:NewPersonaView/>
+        </DataTemplate>
+
     </Window.DataTemplates>
 
     <Grid ColumnDefinitions="220,*">

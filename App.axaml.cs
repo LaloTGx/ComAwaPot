@@ -28,6 +28,8 @@ public App()
     services.AddTransient<MainWindowViewModel>();
     services.AddTransient<PersonasViewModel>();
     services.AddTransient<TomasViewModel>();
+    services.AddTransient<PersonaDetalleViewModel>();
+    services.AddTransient<NewPersonaViewModel>();
 
     Services = services.BuildServiceProvider();
 }

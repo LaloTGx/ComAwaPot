@@ -15,17 +15,15 @@ public partial class PersonasViewModel : ObservableObject
 
     public ObservableCollection<Persona> PersonasFiltradas { get; } = [];
 
-    [ObservableProperty]
-    private string nuevoNombre = string.Empty;
+    public event Func<int, Task>? SolicitarDetallePersona;
+
+    public event Func<Task>? SolicitarNuevaPersona;
 
     [ObservableProperty]
     private string textoBusqueda = string.Empty;
 
     [ObservableProperty]
     private Persona? personaSeleccionada;
-
-    [ObservableProperty]
-    private string nombreEdicion = string.Empty;
 
     public PersonasViewModel(PersonaService personaService)
     {
@@ -51,12 +49,6 @@ public partial class PersonasViewModel : ObservableObject
         ActualizarFiltro();
     }
 
-    partial void OnPersonaSeleccionadaChanged(
-        Persona? value)
-    {
-        NombreEdicion = value?.Nombre ?? string.Empty;
-    }
-
     private void ActualizarFiltro()
     {
         var texto = TextoBusqueda.Trim();
@@ -64,7 +56,7 @@ public partial class PersonasViewModel : ObservableObject
         var personas = string.IsNullOrWhiteSpace(texto)
             ? Personas
             : Personas.Where(p =>
-                p.Nombre.Contains(
+                p.NombreCompleto.Contains(
                     texto,
                     StringComparison.OrdinalIgnoreCase));
 
@@ -77,45 +69,22 @@ public partial class PersonasViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task AgregarPersona()
+    private async Task NuevaPersona()
     {
-        if (string.IsNullOrWhiteSpace(NuevoNombre))
-            return;
-
-        var persona = new Persona
+        if (SolicitarNuevaPersona is not null)
         {
-            Nombre = NuevoNombre.Trim()
-        };
-
-        var personaCreada =
-            await _personaService.CrearAsync(persona);
-
-        Personas.Add(personaCreada);
-
-        NuevoNombre = string.Empty;
-
-        ActualizarFiltro();
+            await SolicitarNuevaPersona();
+        }
     }
 
     [RelayCommand]
-    private async Task GuardarEdicion()
+    private async Task SeleccionarPersona(Persona persona)
     {
-        if (PersonaSeleccionada is null)
-            return;
+        PersonaSeleccionada = persona;
 
-        if (string.IsNullOrWhiteSpace(NombreEdicion))
-            return;
-
-        PersonaSeleccionada.Nombre = NombreEdicion.Trim();
-
-        await _personaService.ActualizarAsync(PersonaSeleccionada);
-
-        ActualizarFiltro();
+        if (SolicitarDetallePersona is not null)
+        {
+            await SolicitarDetallePersona(persona.PersonaId);
+        }
     }
-
-    [RelayCommand]
-	private void SeleccionarPersona(Persona persona)
-	{
-	    PersonaSeleccionada = persona;
-	}
 }

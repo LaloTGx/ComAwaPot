@@ -46,6 +46,9 @@ public class AppDbContext : DbContext
             .HasForeignKey(t => t.PersonaId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Persona>()
+            .Ignore(p => p.NombreCompleto);
+
         // Toma → HistorialSituacion
 
         modelBuilder.Entity<Toma>()

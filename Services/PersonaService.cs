@@ -28,6 +28,7 @@ public class PersonaService
         using var db = new AppDbContext(_dbOptions);
 
         return await db.Personas
+            .Include(p => p.Tomas)
             .FirstOrDefaultAsync(p => p.PersonaId == personaId);
     }
 

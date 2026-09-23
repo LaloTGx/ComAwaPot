@@ -26,151 +26,83 @@
 
             <Button Grid.Column="1"
                     Content="+ Nueva persona"
-                    Command="{Binding AgregarPersonaCommand}"
+                    Command="{Binding NuevaPersonaCommand}"
                     Padding="18,10"/>
 
         </Grid>
 
-
         <!-- Búsqueda -->
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,Auto"
-              ColumnSpacing="12">
+        <TextBox Grid.Row="1"
+                 PlaceholderText="Buscar por nombre o apellido..."
+                 Text="{Binding TextoBusqueda}"/>
 
-            <TextBox Grid.Column="0"
-                     PlaceholderText="Buscar persona..."
-                     Text="{Binding TextoBusqueda}"/>
+        <!-- Lista -->
+        <Border Grid.Row="2"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="16">
 
-            <TextBox Grid.Column="1"
-                     Width="250"
-                     PlaceholderText="Nuevo nombre..."
-                     Text="{Binding NuevoNombre}"/>
+            <Grid RowDefinitions="Auto,*"
+                  RowSpacing="12">
 
-        </Grid>
+                <!-- Encabezados -->
+                <Grid Grid.Row="0"
+                      ColumnDefinitions="*,100">
 
+                    <TextBlock Grid.Column="0"
+                               Text="Nombre completo"
+                               FontWeight="Bold"
+                               Opacity="0.7"/>
 
-        <!-- Contenido -->
-        <Grid Grid.Row="2"
-              ColumnDefinitions="2*,*"
-              ColumnSpacing="24">
-
-
-            <!-- Lista -->
-            <Border Grid.Column="0"
-                    Background="#18181B"
-                    CornerRadius="8"
-                    Padding="16">
-
-                <Grid RowDefinitions="Auto,*"
-                      RowSpacing="12">
-
-                    <!-- Encabezados -->
-                    <Grid Grid.Row="0"
-                          ColumnDefinitions="*,100">
-
-                        <TextBlock Grid.Column="0"
-                                   Text="Nombre"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"/>
-
-                        <TextBlock Grid.Column="1"
-                                   Text="Tomas"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"
-                                   HorizontalAlignment="Center"/>
-
-                    </Grid>
-
-
-                    <!-- Personas -->
-                    <ScrollViewer Grid.Row="1">
-
-                        <ItemsControl ItemsSource="{Binding PersonasFiltradas}">
-
-                            <ItemsControl.ItemTemplate>
-
-                                <DataTemplate>
-
-                                    <Button HorizontalContentAlignment="Stretch"
-                                            Padding="12"
-                                            Margin="0,0,0,4"
-                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarPersonaCommand}"
-                                            CommandParameter="{Binding}">
-
-                                        <Grid ColumnDefinitions="*,100">
-
-                                            <TextBlock Grid.Column="0"
-                                                       Text="{Binding Nombre}"
-                                                       VerticalAlignment="Center"/>
-
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding Tomas.Count}"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"/>
-
-                                        </Grid>
-
-                                    </Button>
-
-                                </DataTemplate>
-
-                            </ItemsControl.ItemTemplate>
-
-                        </ItemsControl>
-
-                    </ScrollViewer>
+                    <TextBlock Grid.Column="1"
+                               Text="Tomas"
+                               FontWeight="Bold"
+                               Opacity="0.7"
+                               HorizontalAlignment="Center"/>
 
                 </Grid>
 
-            </Border>
+                <!-- Personas -->
+                <ScrollViewer Grid.Row="1">
 
+                    <ItemsControl ItemsSource="{Binding PersonasFiltradas}">
 
-            <!-- Detalle -->
-            <Border Grid.Column="1"
-                    Background="#18181B"
-                    CornerRadius="8"
-                    Padding="20">
+                        <ItemsControl.ItemTemplate>
 
-                <StackPanel Spacing="16">
+                            <DataTemplate>
 
-                    <TextBlock Text="Información"
-                               FontSize="20"
-                               FontWeight="Bold"/>
+                                <Button HorizontalContentAlignment="Stretch"
+                                        Padding="12"
+                                        Margin="0,0,0,4"
+                                        Command="{Binding $parent[ItemsControl].DataContext.SeleccionarPersonaCommand}"
+                                        CommandParameter="{Binding}">
 
+                                    <Grid ColumnDefinitions="*,100">
 
-                    <TextBlock Text="Persona seleccionada"
-                               FontSize="13"
-                               Opacity="0.6"/>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding NombreCompleto}"
+                                                   VerticalAlignment="Center"/>
 
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Tomas.Count}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
 
-                    <TextBox Text="{Binding NombreEdicion}"
-                             PlaceholderText="Nombre"/>
+                                    </Grid>
 
+                                </Button>
 
-                    <Button Content="Guardar cambios"
-                            Command="{Binding GuardarEdicionCommand}"
-                            HorizontalAlignment="Left"
-                            Padding="18,10"/>
+                            </DataTemplate>
 
+                        </ItemsControl.ItemTemplate>
 
-                    <Border Height="1"
-                            Background="#303036"
-                            Margin="0,8"/>
+                    </ItemsControl>
 
+                </ScrollViewer>
 
-                    <TextBlock Text="Tomas"
-                               FontSize="18"
-                               FontWeight="Bold"/>
+            </Grid>
 
-
-                    <TextBlock Text="{Binding PersonaSeleccionada.Tomas.Count, StringFormat='Tomas registradas: {0}'}"
-                               Opacity="0.7"/>
-
-                </StackPanel>
-
-            </Border>
-
-        </Grid>
+        </Border>
 
     </Grid>
 
