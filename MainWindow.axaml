@@ -15,6 +15,31 @@
         MinWidth="900"
         MinHeight="600">
 
+    <Window.Styles>
+
+        <Style Selector="Button.menu-button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#D4D4D8"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style Selector="Button.menu-button:pointerover">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#18181B"/>
+        </Style>
+
+        <Style Selector="Separator">
+            <Setter Property="Background" Value="#27272A"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+    </Window.Styles>
+
     <Window.DataTemplates>
 
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
@@ -25,29 +50,35 @@
             <views:PersonasView />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:TomasViewModel}">
-            <views:TomasView/>
+        <DataTemplate DataType="vm:NewPersonaViewModel">
+            <views:NewPersonaView/>
         </DataTemplate>
 
         <DataTemplate DataType="vm:PersonaDetalleViewModel">
             <views:PersonaDetalleView/>
         </DataTemplate>
 
-        <DataTemplate DataType="vm:NewPersonaViewModel">
-            <views:NewPersonaView/>
+        <DataTemplate DataType="{x:Type vm:TomasViewModel}">
+            <views:TomasView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="vm:NewTomaViewModel">
+            <views:NewTomaView />
+        </DataTemplate>
+
+        <DataTemplate DataType="vm:TomaDetalleViewModel">
+            <views:TomaDetalleView />
         </DataTemplate>
 
     </Window.DataTemplates>
 
     <Grid ColumnDefinitions="220,*">
 
-        <!-- Navegación -->
         <Border Grid.Column="0"
                 Background="#18181B">
 
             <Grid RowDefinitions="Auto,*,Auto">
 
-                <!-- Logo -->
                 <StackPanel Grid.Row="0"
                             Margin="24,28,24,32"
                             Spacing="4">
@@ -56,52 +87,57 @@
                                FontSize="24"
                                FontWeight="Bold"/>
 
-                    <TextBlock Text="Comité de agua"
+                    <TextBlock Text="Comité de agua potable"
                                FontSize="13"
                                Opacity="0.6"/>
+
                 </StackPanel>
 
-                <!-- Menú -->
                 <StackPanel Grid.Row="1"
                             Margin="12,0"
-                            Spacing="4">
+                            Spacing="5"
+                            VerticalAlignment="Center">
 
-                    <Button Content="Inicio"
-                            Command="{Binding MostrarInicioCommand}"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Button Classes="menu-button"
+                            Content="Inicio"
+                            Command="{Binding MostrarInicioCommand}"/>
 
-                    <Button Content="Personas"
-                            Command="{Binding MostrarPersonasCommand}"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Separator/>
 
-                    <Button Content="Tomas"
-                            Command="{Binding MostrarTomasCommand}"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Button Classes="menu-button"
+                            Content="Personas"
+                            Command="{Binding MostrarPersonasCommand}"/>
 
-                    <Button Content="Tarifas"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Separator/>
 
-                    <Button Content="Pagos"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Button Classes="menu-button"
+                            Content="Tomas"
+                            Command="{Binding MostrarTomasCommand}"/>
 
-                    <Button Content="Aportaciones"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Separator/>
 
-                    <Button Content="Reportes"
-                            HorizontalContentAlignment="Left"
-                            Padding="16,12"/>
+                    <Button Classes="menu-button"
+                            Content="Tarifas"/>
+
+                    <Separator/>
+
+                    <Button Classes="menu-button"
+                            Content="Pagos"/>
+
+                    <Separator/>
+
+                    <Button Classes="menu-button"
+                            Content="Aportaciones"/>
+
+                    <Separator/>
+
+                    <Button Classes="menu-button"
+                            Content="Reportes"/>
 
                 </StackPanel>
 
-                <!-- Pie -->
                 <TextBlock Grid.Row="2"
-                           Text="ComAwaPot"
+                           Text="ComAwaPot 1.0.0"
                            Margin="24,24"
                            FontSize="12"
                            Opacity="0.5"/>
@@ -110,7 +146,6 @@
 
         </Border>
 
-        <!-- Contenido -->
         <Border Grid.Column="1"
                 Padding="40">
 

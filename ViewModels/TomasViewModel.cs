@@ -15,6 +15,8 @@ public partial class TomasViewModel : ObservableObject
 
     public ObservableCollection<Toma> TomasFiltradas { get; } = [];
 
+    public event Func<int, Task>? SolicitarDetalleToma;
+
     [ObservableProperty]
     private string textoBusqueda = string.Empty;
 
@@ -70,8 +72,13 @@ public partial class TomasViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SeleccionarToma(Toma toma)
-    {
-        TomaSeleccionada = toma;
-    }
+	private async Task SeleccionarToma(Toma toma)
+	{
+	    TomaSeleccionada = toma;
+
+	    if (SolicitarDetalleToma is not null)
+	    {
+	        await SolicitarDetalleToma(toma.TomaId);
+	    }
+	}
 }

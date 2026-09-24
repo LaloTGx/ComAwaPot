@@ -81,6 +81,7 @@
 
                         <Button Grid.Column="1"
                                 Content="+ Nueva toma"
+                                Command="{Binding NuevaTomaCommand}"
                                 Padding="14,8"/>
 
                     </Grid>
@@ -95,7 +96,9 @@
 
                                     <Button HorizontalContentAlignment="Stretch"
                                             Padding="14"
-                                            Margin="0,0,0,6">
+                                            Margin="0,0,0,6"
+                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
+                                            CommandParameter="{Binding}">
 
                                         <Grid ColumnDefinitions="120,*,100">
 

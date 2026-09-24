@@ -1,0 +1,119 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.TomaDetalleView"
+             x:DataType="vm:TomaDetalleViewModel">
+
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="24">
+
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto">
+
+            <StackPanel Grid.Column="0"
+                        Spacing="4">
+
+                <TextBlock Text="{Binding Toma.NumeroContrato,
+                                          StringFormat='Toma {0}'}"
+                           FontSize="32"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="Información de la toma"
+                           FontSize="16"
+                           Opacity="0.7"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="24">
+
+            <Border Grid.Column="0"
+                    Background="#18181B"
+                    CornerRadius="8"
+                    Padding="20">
+
+                <StackPanel Spacing="16">
+
+                    <TextBlock Text="Información"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock Text="Número de contrato"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
+
+                        <TextBlock Text="{Binding Toma.NumeroContrato}"
+                                   FontSize="17"/>
+
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock Text="Calle"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
+
+                        <TextBlock Text="{Binding Toma.Calle}"
+                                   FontSize="17"/>
+
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock Text="Número exterior"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
+
+                        <TextBlock Text="{Binding Toma.NumExt}"
+                                   FontSize="17"/>
+
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock Text="Estado"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
+
+                        <TextBlock Text="{Binding Toma.Estado}"
+                                   FontSize="17"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Grid.Column="1"
+                    Background="#18181B"
+                    CornerRadius="8"
+                    Padding="20">
+
+                <StackPanel Spacing="16">
+
+                    <TextBlock Text="Persona"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="{Binding Toma.Persona.NombreCompleto}"
+                               FontSize="18"/>
+
+                    <Button Content="Ver persona"
+                            Command="{Binding VerPersonaCommand}"
+                            HorizontalAlignment="Left"
+                            Padding="18,10"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

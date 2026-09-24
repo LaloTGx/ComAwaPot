@@ -24,10 +24,6 @@
 
             </StackPanel>
 
-            <Button Grid.Column="1"
-                    Content="+ Nueva toma"
-                    Padding="18,10"/>
-
         </Grid>
 
         <!-- Búsqueda -->
@@ -98,7 +94,7 @@
                                                        VerticalAlignment="Center"/>
 
                                             <TextBlock Grid.Column="1"
-                                                       Text="{Binding Persona.Nombre}"
+                                                       Text="{Binding Persona.NombreCompleto}"
                                                        VerticalAlignment="Center"/>
 
                                             <TextBlock Grid.Column="2"
@@ -145,7 +141,7 @@
                     <TextBlock Text="{Binding TomaSeleccionada.NumeroContrato,
                                               StringFormat='Contrato: {0}'}"/>
 
-                    <TextBlock Text="{Binding TomaSeleccionada.Persona.Nombre,
+                    <TextBlock Text="{Binding TomaSeleccionada.Persona.NombreCompleto,
                                               StringFormat='Persona: {0}'}"/>
 
                     <TextBlock Text="{Binding TomaSeleccionada.Calle,
