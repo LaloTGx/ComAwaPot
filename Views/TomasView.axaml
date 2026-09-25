@@ -4,15 +4,33 @@
              x:Class="ComAwaPot.Views.TomasView"
              x:DataType="vm:TomasViewModel">
 
+    <UserControl.Styles>
+
+        <Style Selector="Button.table-button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#D4D4D8"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+
+        <Style Selector="Button.table-button:pointerover">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#18181B"/>
+        </Style>
+
+    </UserControl.Styles>
+
     <Grid RowDefinitions="Auto,Auto,*"
           RowSpacing="24">
 
         <!-- Encabezado -->
-        <Grid Grid.Row="0"
-              ColumnDefinitions="*,Auto">
+        <Grid Grid.Row="0">
 
-            <StackPanel Grid.Column="0"
-                        Spacing="4">
+            <StackPanel Spacing="4">
 
                 <TextBlock Text="Tomas"
                            FontSize="32"
@@ -31,133 +49,90 @@
                  PlaceholderText="Buscar por contrato, persona o calle..."
                  Text="{Binding TextoBusqueda}"/>
 
-        <!-- Lista + detalle -->
-        <Grid Grid.Row="2"
-              ColumnDefinitions="2*,*"
-              ColumnSpacing="24">
+        <!-- Lista -->
+        <Border Grid.Row="2"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="16">
 
-            <!-- Lista -->
-            <Border Grid.Column="0"
-                    Background="#18181B"
-                    CornerRadius="8"
-                    Padding="16">
+            <Grid RowDefinitions="Auto,*"
+                  RowSpacing="12">
 
-                <Grid RowDefinitions="Auto,*"
-                      RowSpacing="12">
+			<!-- Encabezados -->
+			<Grid Grid.Row="0"
+			      ColumnDefinitions="100,*,*,100"
+			      Margin="12,0">
 
-                    <!-- Encabezados -->
-                    <Grid Grid.Row="0"
-                          ColumnDefinitions="100,*,*,100">
+			    <TextBlock Grid.Column="0"
+			               Text="Contrato"
+			               FontWeight="Bold"
+			               Opacity="0.7"/>
 
-                        <TextBlock Grid.Column="0"
-                                   Text="Contrato"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"/>
+			    <TextBlock Grid.Column="1"
+			               Text="Persona"
+			               FontWeight="Bold"
+			               Opacity="0.7"/>
 
-                        <TextBlock Grid.Column="1"
-                                   Text="Persona"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"/>
+			    <TextBlock Grid.Column="2"
+			               Text="Dirección"
+			               FontWeight="Bold"
+			               Opacity="0.7"/>
 
-                        <TextBlock Grid.Column="2"
-                                   Text="Dirección"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"/>
+			    <TextBlock Grid.Column="3"
+			               Text="Estado"
+			               FontWeight="Bold"
+			               Opacity="0.7"
+			               HorizontalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="3"
-                                   Text="Estado"
-                                   FontWeight="Bold"
-                                   Opacity="0.7"
-                                   HorizontalAlignment="Center"/>
+			</Grid>
 
-                    </Grid>
+                <!-- Tomas -->
+                <ScrollViewer Grid.Row="1">
 
-                    <!-- Tomas -->
-                    <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding TomasFiltradas}">
 
-                        <ItemsControl ItemsSource="{Binding TomasFiltradas}">
+                        <ItemsControl.ItemTemplate>
 
-                            <ItemsControl.ItemTemplate>
+                            <DataTemplate>
 
-                                <DataTemplate>
+                                <Button Classes="table-button"
+                                        Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
+                                        CommandParameter="{Binding}">
 
-                                    <Button HorizontalContentAlignment="Stretch"
-                                            Padding="12"
-                                            Margin="0,0,0,4"
-                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
-                                            CommandParameter="{Binding}">
+                                    <Grid ColumnDefinitions="100,*,*,100">
 
-                                        <Grid ColumnDefinitions="100,*,*,100">
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding NumeroContrato}"
+                                                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="0"
-                                                       Text="{Binding NumeroContrato}"
-                                                       VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Persona.NombreCompleto}"
+                                                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding Persona.NombreCompleto}"
-                                                       VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Calle}"
+                                                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="2"
-                                                       Text="{Binding Calle}"
-                                                       VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3"
+                                                   Text="{Binding Estado}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="3"
-                                                       Text="{Binding Estado}"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"/>
+                                    </Grid>
 
-                                        </Grid>
+                                </Button>
 
-                                    </Button>
+                            </DataTemplate>
 
-                                </DataTemplate>
+                        </ItemsControl.ItemTemplate>
 
-                            </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-                        </ItemsControl>
+                </ScrollViewer>
 
-                    </ScrollViewer>
+            </Grid>
 
-                </Grid>
-
-            </Border>
-
-            <!-- Detalle -->
-            <Border Grid.Column="1"
-                    Background="#18181B"
-                    CornerRadius="8"
-                    Padding="20">
-
-                <StackPanel Spacing="16">
-
-                    <TextBlock Text="Información"
-                               FontSize="20"
-                               FontWeight="Bold"/>
-
-                    <TextBlock Text="Toma seleccionada"
-                               FontSize="13"
-                               Opacity="0.6"/>
-
-                    <TextBlock Text="{Binding TomaSeleccionada.NumeroContrato,
-                                              StringFormat='Contrato: {0}'}"/>
-
-                    <TextBlock Text="{Binding TomaSeleccionada.Persona.NombreCompleto,
-                                              StringFormat='Persona: {0}'}"/>
-
-                    <TextBlock Text="{Binding TomaSeleccionada.Calle,
-                                              StringFormat='Calle: {0}'}"/>
-
-                    <TextBlock Text="{Binding TomaSeleccionada.NumExt,
-                                              StringFormat='Número exterior: {0}'}"/>
-
-                    <TextBlock Text="{Binding TomaSeleccionada.Estado,
-                                              StringFormat='Estado: {0}'}"/>
-
-                </StackPanel>
-
-            </Border>
-
-        </Grid>
+        </Border>
 
     </Grid>
 
