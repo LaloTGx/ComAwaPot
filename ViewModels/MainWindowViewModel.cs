@@ -5,119 +5,135 @@ namespace ComAwaPot.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-private readonly PersonasViewModel _personasViewModel;
-private readonly NewPersonaViewModel _newPersonaViewModel;
-private readonly PersonaDetalleViewModel _personaDetalleViewModel;
-private readonly TomasViewModel _tomasViewModel;
-private readonly NewTomaViewModel _newTomaViewModel;
-private readonly TomaDetalleViewModel _tomaDetalleViewModel;
+    private readonly PersonasViewModel _personasViewModel;
+    private readonly PersonaDetalleViewModel _personaDetalleViewModel;
+    private readonly TomasViewModel _tomasViewModel;
+    private readonly NewTomaViewModel _newTomaViewModel;
+    private readonly TomaDetalleViewModel _tomaDetalleViewModel;
+    private readonly NewPersonaViewModel _newPersonaViewModel;
 
-[ObservableProperty]
-private ObservableObject currentViewModel;
+    [ObservableProperty]
+    private ObservableObject currentViewModel;
 
-public MainWindowViewModel(
+    [ObservableProperty]
+    private bool mostrarNuevaPersona;
+
+    public MainWindowViewModel(
         PersonasViewModel personasViewModel,
         TomasViewModel tomasViewModel,
         PersonaDetalleViewModel personaDetalleViewModel,
-        NewPersonaViewModel newPersonaViewModel,
         NewTomaViewModel newTomaViewModel,
-        TomaDetalleViewModel tomaDetalleViewModel
-        )
-{
-    _personasViewModel = personasViewModel;
-    _tomasViewModel = tomasViewModel;
-    _personaDetalleViewModel = personaDetalleViewModel;
-    _newPersonaViewModel = newPersonaViewModel;
-    _newTomaViewModel = newTomaViewModel;
-    _tomaDetalleViewModel = tomaDetalleViewModel;
+        TomaDetalleViewModel tomaDetalleViewModel,
+        NewPersonaViewModel newPersonaViewModel)
+    {
+        _personasViewModel = personasViewModel;
+        _personaDetalleViewModel = personaDetalleViewModel;
+        _tomasViewModel = tomasViewModel;
+        _newTomaViewModel = newTomaViewModel;
+        _tomaDetalleViewModel = tomaDetalleViewModel;
+        _newPersonaViewModel = newPersonaViewModel;
 
-    _personasViewModel.SolicitarNuevaPersona += MostrarNuevaPersonaAsync;
-    _newPersonaViewModel.PersonaCreada += VolverAPersonasAsync;
-    _personasViewModel.SolicitarDetallePersona += MostrarDetallePersonaAsync;
+        _personasViewModel.SolicitarNuevaPersona += AbrirNuevaPersonaAsync;
+        _personasViewModel.SolicitarDetallePersona += MostrarDetallePersonaAsync;
 
-    _personaDetalleViewModel.SolicitarNuevaToma += MostrarNuevaTomaAsync;
-    _newTomaViewModel.TomaCreada += VolverAPersonaDetalleAsync;
-    _personaDetalleViewModel.SolicitarDetalleToma += MostrarDetalleTomaAsync;
+        _personaDetalleViewModel.SolicitarNuevaToma += MostrarNuevaTomaAsync;
+        _newTomaViewModel.TomaCreada += VolverAPersonaDetalleAsync;
 
-    _tomaDetalleViewModel.SolicitarPersona += MostrarDetallePersonaAsync;
-    _tomasViewModel.SolicitarDetalleToma += MostrarDetalleTomaAsync;
+        _personaDetalleViewModel.SolicitarDetalleToma += MostrarDetalleTomaAsync;
 
-    currentViewModel = new HomeViewModel();
-}
+        _tomaDetalleViewModel.SolicitarPersona += MostrarDetallePersonaAsync;
 
-[RelayCommand]
-private void MostrarInicio()
-{
-    CurrentViewModel = new HomeViewModel();
-}
+        _tomasViewModel.SolicitarDetalleToma += MostrarDetalleTomaAsync;
 
-[RelayCommand]
-private async Task MostrarPersonas()
-{
-    await _personasViewModel.CargarPersonasAsync();
+        _newPersonaViewModel.PersonaCreada += PersonaCreadaAsync;
+        _newPersonaViewModel.CancelarSolicitado += CerrarNuevaPersonaAsync;
 
-    CurrentViewModel = _personasViewModel;
-}
+        currentViewModel = new HomeViewModel();
+    }
 
-[RelayCommand]
-private void MostrarNuevaPersona()
-{
-    CurrentViewModel = _newPersonaViewModel;
-}
+    public NewPersonaViewModel NewPersonaViewModel =>
+        _newPersonaViewModel;
 
-public async Task MostrarDetallePersonaAsync(int personaId)
-{
-    await _personaDetalleViewModel.CargarPersonaAsync(personaId);
+    [RelayCommand]
+    private void MostrarInicio()
+    {
+        CurrentViewModel = new HomeViewModel();
+    }
 
-    CurrentViewModel = _personaDetalleViewModel;
-}
+    [RelayCommand]
+    public async Task MostrarPersonas()
+    {
+        await _personasViewModel.CargarPersonasAsync();
 
-[RelayCommand]
-private async Task MostrarTomas()
-{
-    await _tomasViewModel.CargarTomasAsync();
-    CurrentViewModel = _tomasViewModel;
-}
+        CurrentViewModel = _personasViewModel;
+    }
 
-private Task MostrarNuevaPersonaAsync()
-{
-    CurrentViewModel = _newPersonaViewModel;
+    public async Task MostrarDetallePersonaAsync(int personaId)
+    {
+        await _personaDetalleViewModel.CargarPersonaAsync(personaId);
 
-    return Task.CompletedTask;
-}
+        CurrentViewModel = _personaDetalleViewModel;
+    }
 
-private async Task VolverAPersonasAsync()
-{
-    await _personasViewModel.CargarPersonasAsync();
+    [RelayCommand]
+    private async Task MostrarTomas()
+    {
+        await _tomasViewModel.CargarTomasAsync();
 
-    CurrentViewModel = _personasViewModel;
-}
+        CurrentViewModel = _tomasViewModel;
+    }
 
-private async Task MostrarNuevaTomaAsync(int personaId)
-{
-    _newTomaViewModel.PrepararParaPersona(personaId);
+    private async Task MostrarNuevaTomaAsync(int personaId)
+    {
+        _newTomaViewModel.PrepararParaPersona(personaId);
 
-    CurrentViewModel = _newTomaViewModel;
+        CurrentViewModel = _newTomaViewModel;
 
-    await Task.CompletedTask;
-}
+        await Task.CompletedTask;
+    }
 
-private async Task VolverAPersonaDetalleAsync()
-{
-    if (_personaDetalleViewModel.Persona is null)
-        return;
+    private async Task VolverAPersonaDetalleAsync()
+    {
+        if (_personaDetalleViewModel.Persona is null)
+            return;
 
-    await _personaDetalleViewModel.CargarPersonaAsync(
-        _personaDetalleViewModel.Persona.PersonaId);
+        await _personaDetalleViewModel.CargarPersonaAsync(
+            _personaDetalleViewModel.Persona.PersonaId);
 
-    CurrentViewModel = _personaDetalleViewModel;
-}
+        CurrentViewModel = _personaDetalleViewModel;
+    }
 
-private async Task MostrarDetalleTomaAsync(int tomaId)
-{
-    await _tomaDetalleViewModel.CargarTomaAsync(tomaId);
+    private async Task MostrarDetalleTomaAsync(int tomaId)
+    {
+        await _tomaDetalleViewModel.CargarTomaAsync(tomaId);
 
-    CurrentViewModel = _tomaDetalleViewModel;
-}
+        CurrentViewModel = _tomaDetalleViewModel;
+    }
 
+    private async Task AbrirNuevaPersonaAsync()
+    {
+        MostrarNuevaPersona = true;
+
+        await Task.CompletedTask;
+    }
+
+    private async Task PersonaCreadaAsync()
+    {
+        MostrarNuevaPersona = false;
+
+        await MostrarPersonas();
+    }
+
+    private async Task CerrarNuevaPersonaAsync()
+    {
+        MostrarNuevaPersona = false;
+
+        await Task.CompletedTask;
+    }
+
+    [RelayCommand]
+    public void CerrarNuevaPersona()
+    {
+        MostrarNuevaPersona = false;
+    }
 }

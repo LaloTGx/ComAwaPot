@@ -4,100 +4,204 @@
              x:Class="ComAwaPot.Views.NewPersonaView"
              x:DataType="vm:NewPersonaViewModel">
 
-    <Grid RowDefinitions="Auto,*"
-          RowSpacing="24">
+    <UserControl.Styles>
+
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style Selector="TextBlock.field-label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Opacity" Value="0.7"/>
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
 
         <StackPanel Grid.Row="0"
                     Spacing="4">
 
             <TextBlock Text="Nueva persona"
-                       FontSize="32"
+                       FontSize="28"
                        FontWeight="Bold"/>
 
-            <TextBlock Text="Registra una nueva persona en el comité."
-                       FontSize="16"
+            <TextBlock Text="Registra la persona y su primera toma."
+                       FontSize="14"
                        Opacity="0.7"/>
 
         </StackPanel>
 
+
+        <!-- Datos de la persona -->
+
         <Border Grid.Row="1"
                 Background="#18181B"
                 CornerRadius="8"
-                Padding="24"
-                MaxWidth="700"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                Padding="20">
 
             <Grid RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="*,*"
-                  RowSpacing="16"
+                  RowSpacing="14"
                   ColumnSpacing="16">
 
-                <!-- Nombre -->
+                <TextBlock Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Text="Datos de la persona"
+                           Classes="section-title"/>
 
-                <StackPanel Grid.Row="0"
+
+                <StackPanel Grid.Row="1"
                             Grid.Column="0"
-                            Spacing="6">
+                            Spacing="5">
 
-                    <TextBlock Text="Nombre"/>
+                    <TextBlock Text="Nombre"
+                               Classes="field-label"/>
 
                     <TextBox Text="{Binding Nombre}"
                              PlaceholderText="Nombre"/>
 
                 </StackPanel>
 
-                <!-- Segundo nombre -->
 
-                <StackPanel Grid.Row="0"
+                <StackPanel Grid.Row="1"
                             Grid.Column="1"
-                            Spacing="6">
+                            Spacing="5">
 
                     <TextBlock Text="Segundo nombre"
-                               Opacity="0.8"/>
+                               Classes="field-label"/>
 
                     <TextBox Text="{Binding SegundoNombre}"
                              PlaceholderText="Opcional"/>
 
                 </StackPanel>
 
-                <!-- Primer apellido -->
 
-                <StackPanel Grid.Row="1"
+                <StackPanel Grid.Row="2"
                             Grid.Column="0"
-                            Spacing="6">
+                            Spacing="5">
 
-                    <TextBlock Text="Primer apellido"/>
+                    <TextBlock Text="Primer apellido"
+                               Classes="field-label"/>
 
                     <TextBox Text="{Binding PrimerApellido}"
                              PlaceholderText="Primer apellido"/>
 
                 </StackPanel>
 
-                <!-- Segundo apellido -->
 
-                <StackPanel Grid.Row="1"
+                <StackPanel Grid.Row="2"
                             Grid.Column="1"
-                            Spacing="6">
+                            Spacing="5">
 
-                    <TextBlock Text="Segundo apellido"/>
+                    <TextBlock Text="Segundo apellido"
+                               Classes="field-label"/>
 
                     <TextBox Text="{Binding SegundoApellido}"
                              PlaceholderText="Segundo apellido"/>
 
                 </StackPanel>
 
-                <!-- Guardar -->
+            </Grid>
 
-                <Button Grid.Row="2"
-                        Grid.Column="1"
-                        Content="Guardar"
-                        Command="{Binding GuardarCommand}"
-                        HorizontalAlignment="Right"
-                        Padding="18,10"/>
+        </Border>
+
+
+        <!-- Primera toma -->
+
+        <Border Grid.Row="2"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="20"
+                VerticalAlignment="Top">
+
+            <Grid RowDefinitions="Auto,Auto,Auto"
+                  ColumnDefinitions="*,*"
+                  RowSpacing="14"
+                  ColumnSpacing="16">
+
+                <TextBlock Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Text="Primera toma"
+                           Classes="section-title"/>
+
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Número de contrato"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding NumeroContrato}"
+                             PlaceholderText="Número de contrato"/>
+
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="5">
+
+                    <TextBlock Text="Estado"
+                               Classes="field-label"/>
+
+                    <ComboBox SelectedItem="{Binding Estado}"
+                              ItemsSource="{Binding Source={x:Static vm:NewPersonaViewModel.Estados}}"/>
+
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="2"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Calle"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding Calle}"
+                             PlaceholderText="Calle"/>
+
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="2"
+                            Grid.Column="1"
+                            Spacing="5">
+
+                    <TextBlock Text="Número exterior"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding NumExt}"
+                             PlaceholderText="Número exterior"/>
+
+                </StackPanel>
 
             </Grid>
 
         </Border>
+
+
+        <!-- Botones -->
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="12">
+
+            <Button Content="Cancelar"
+                    Command="{Binding CancelarCommand}"
+                    Padding="18,10"/>
+
+            <Button Content="Guardar"
+                    Command="{Binding GuardarCommand}"
+                    Padding="18,10"/>
+
+        </StackPanel>
 
     </Grid>
 

@@ -9,7 +9,16 @@ public partial class NewPersonaViewModel : ObservableObject
 {
     private readonly PersonaService _personaService;
 
+    public static Situacion[] Estados { get; } =
+        Enum.GetValues<Situacion>();
+
     public event Func<Task>? PersonaCreada;
+
+    public event Func<Task>? CancelarSolicitado;
+
+    // -------------------------
+    // Datos de la persona
+    // -------------------------
 
     [ObservableProperty]
     private string nombre = string.Empty;
@@ -23,46 +32,104 @@ public partial class NewPersonaViewModel : ObservableObject
     [ObservableProperty]
     private string segundoApellido = string.Empty;
 
+    // -------------------------
+    // Datos de la primera toma
+    // -------------------------
+
+    [ObservableProperty]
+    private int numeroContrato;
+
+    [ObservableProperty]
+    private string calle = string.Empty;
+
+    [ObservableProperty]
+    private int numExt;
+
+    [ObservableProperty]
+    private Situacion estado = Situacion.Activa;
+
     public NewPersonaViewModel(PersonaService personaService)
     {
         _personaService = personaService;
     }
 
     [RelayCommand]
-private async Task Guardar()
-{
-    if (string.IsNullOrWhiteSpace(Nombre))
-        return;
-
-    if (string.IsNullOrWhiteSpace(PrimerApellido))
-        return;
-
-    if (string.IsNullOrWhiteSpace(SegundoApellido))
-        return;
-
-    var persona = new Persona
+    private async Task Guardar()
     {
-        Nombre = Nombre.Trim(),
+        // Validación de persona
+        if (string.IsNullOrWhiteSpace(Nombre))
+            return;
 
-        SegundoNombre = string.IsNullOrWhiteSpace(SegundoNombre)
-            ? null
-            : SegundoNombre.Trim(),
+        if (string.IsNullOrWhiteSpace(PrimerApellido))
+            return;
 
-        PrimerApellido = PrimerApellido.Trim(),
+        if (string.IsNullOrWhiteSpace(SegundoApellido))
+            return;
 
-        SegundoApellido = SegundoApellido.Trim()
-    };
+        // Validación de primera toma
+        if (NumeroContrato <= 0)
+            return;
 
-    await _personaService.CrearAsync(persona);
+        if (string.IsNullOrWhiteSpace(Calle))
+            return;
 
-    Nombre = string.Empty;
-    SegundoNombre = string.Empty;
-    PrimerApellido = string.Empty;
-    SegundoApellido = string.Empty;
+        if (NumExt <= 0)
+            return;
 
-    if (PersonaCreada is not null)
-    {
-        await PersonaCreada();
+        var persona = new Persona
+        {
+            Nombre = Nombre.Trim(),
+
+            SegundoNombre = string.IsNullOrWhiteSpace(SegundoNombre)
+                ? null
+                : SegundoNombre.Trim(),
+
+            PrimerApellido = PrimerApellido.Trim(),
+
+            SegundoApellido = SegundoApellido.Trim()
+        };
+
+        var toma = new Toma
+        {
+            NumeroContrato = NumeroContrato,
+            Calle = Calle.Trim(),
+            NumExt = NumExt,
+            Estado = Estado
+        };
+
+        var creada = await _personaService
+            .CrearConPrimeraTomaAsync(persona, toma);
+
+        if (!creada)
+            return;
+
+        LimpiarFormulario();
+
+        if (PersonaCreada is not null)
+        {
+            await PersonaCreada();
+        }
     }
-}
+
+    private void LimpiarFormulario()
+    {
+        Nombre = string.Empty;
+        SegundoNombre = string.Empty;
+        PrimerApellido = string.Empty;
+        SegundoApellido = string.Empty;
+
+        NumeroContrato = 0;
+        Calle = string.Empty;
+        NumExt = 0;
+        Estado = Situacion.Activa;
+    }
+
+    [RelayCommand]
+	private async Task Cancelar()
+	{
+	    if (CancelarSolicitado is not null)
+	    {
+	        await CancelarSolicitado();
+	    }
+	}
 }

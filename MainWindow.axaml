@@ -40,6 +40,7 @@
 
     </Window.Styles>
 
+
     <Window.DataTemplates>
 
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
@@ -72,86 +73,130 @@
 
     </Window.DataTemplates>
 
-    <Grid ColumnDefinitions="220,*">
 
-        <Border Grid.Column="0"
-                Background="#18181B">
+    <!-- Contenedor raíz -->
 
-            <Grid RowDefinitions="Auto,*,Auto">
+    <Grid>
 
-                <StackPanel Grid.Row="0"
-                            Margin="24,28,24,32"
-                            Spacing="4">
+        <!-- Aplicación principal -->
 
-                    <TextBlock Text="ComAwaPot"
-                               FontSize="24"
-                               FontWeight="Bold"/>
+        <Grid ColumnDefinitions="220,*">
 
-                    <TextBlock Text="Comité de agua potable"
-                               FontSize="13"
-                               Opacity="0.6"/>
+            <!-- Menú lateral -->
 
-                </StackPanel>
+            <Border Grid.Column="0"
+                    Background="#18181B">
 
-                <StackPanel Grid.Row="1"
-                            Margin="12,0"
-                            Spacing="5"
-                            VerticalAlignment="Center">
+                <Grid RowDefinitions="Auto,*,Auto">
 
-                    <Button Classes="menu-button"
-                            Content="Inicio"
-                            Command="{Binding MostrarInicioCommand}"/>
+                    <StackPanel Grid.Row="0"
+                                Margin="24,28,24,32"
+                                Spacing="4">
 
-                    <Separator/>
+                        <TextBlock Text="ComAwaPot"
+                                   FontSize="24"
+                                   FontWeight="Bold"/>
 
-                    <Button Classes="menu-button"
-                            Content="Personas"
-                            Command="{Binding MostrarPersonasCommand}"/>
+                        <TextBlock Text="Comité de agua potable"
+                                   FontSize="13"
+                                   Opacity="0.6"/>
 
-                    <Separator/>
+                    </StackPanel>
 
-                    <Button Classes="menu-button"
-                            Content="Tomas"
-                            Command="{Binding MostrarTomasCommand}"/>
 
-                    <Separator/>
+                    <StackPanel Grid.Row="1"
+                                Margin="12,0"
+                                Spacing="5"
+                                VerticalAlignment="Center">
 
-                    <Button Classes="menu-button"
-                            Content="Tarifas"/>
+                        <Button Classes="menu-button"
+                                Content="Inicio"
+                                Command="{Binding MostrarInicioCommand}"/>
 
-                    <Separator/>
+                        <Separator/>
 
-                    <Button Classes="menu-button"
-                            Content="Pagos"/>
+                        <Button Classes="menu-button"
+                                Content="Personas"
+                                Command="{Binding MostrarPersonasCommand}"/>
 
-                    <Separator/>
+                        <Separator/>
 
-                    <Button Classes="menu-button"
-                            Content="Aportaciones"/>
+                        <Button Classes="menu-button"
+                                Content="Tomas"
+                                Command="{Binding MostrarTomasCommand}"/>
 
-                    <Separator/>
+                        <Separator/>
 
-                    <Button Classes="menu-button"
-                            Content="Reportes"/>
+                        <Button Classes="menu-button"
+                                Content="Tarifas"/>
 
-                </StackPanel>
+                        <Separator/>
 
-                <TextBlock Grid.Row="2"
-                           Text="ComAwaPot 1.0.0"
-                           Margin="24,24"
-                           FontSize="12"
-                           Opacity="0.5"/>
+                        <Button Classes="menu-button"
+                                Content="Pagos"/>
 
-            </Grid>
+                        <Separator/>
 
-        </Border>
+                        <Button Classes="menu-button"
+                                Content="Aportaciones"/>
 
-        <Border Grid.Column="1"
-                Padding="40">
+                        <Separator/>
 
-            <ContentControl Content="{Binding CurrentViewModel}"/>
+                        <Button Classes="menu-button"
+                                Content="Reportes"/>
 
-        </Border>
+                    </StackPanel>
+
+
+                    <TextBlock Grid.Row="2"
+                               Text="ComAwaPot 1.0.0"
+                               Margin="24,24"
+                               FontSize="12"
+                               Opacity="0.5"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Contenido principal -->
+
+            <Border Grid.Column="1"
+                    Padding="40">
+
+                <ContentControl Content="{Binding CurrentViewModel}"/>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- Overlay -->
+
+        <Grid IsVisible="{Binding MostrarNuevaPersona}">
+
+            <!-- Fondo oscuro -->
+
+            <Border Background="#80000000"
+                    PointerPressed="CerrarNuevaPersona_Click"/>
+
+
+            <!-- Modal -->
+
+            <Border Width="700"
+                    MaxHeight="620"
+                    Background="#18181B"
+                    CornerRadius="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="32">
+
+                <views:NewPersonaView
+                    DataContext="{Binding NewPersonaViewModel}"/>
+
+            </Border>
+
+        </Grid>
 
     </Grid>
 

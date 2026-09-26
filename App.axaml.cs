@@ -49,7 +49,10 @@ public override void OnFrameworkInitializationCompleted()
     {
         var mainWindowViewModel = Services.GetRequiredService<MainWindowViewModel>();
 
-        desktop.MainWindow = new MainWindow(mainWindowViewModel);
+        desktop.MainWindow = new MainWindow
+        {
+            DataContext = mainWindowViewModel
+        };
     }
 
     base.OnFrameworkInitializationCompleted();
