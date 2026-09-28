@@ -29,11 +29,11 @@ public App()
 
     services.AddTransient<PersonasViewModel>();
     services.AddTransient<NewPersonaViewModel>();
+    services.AddTransient<EditPersonaViewModel>();
     services.AddTransient<PersonaDetalleViewModel>();
 
     services.AddTransient<TomasViewModel>();
     services.AddTransient<NewTomaViewModel>();
-    services.AddTransient<TomaDetalleViewModel>();
 
     Services = services.BuildServiceProvider();
 }

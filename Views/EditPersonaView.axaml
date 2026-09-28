@@ -1,0 +1,141 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.EditPersonaView"
+             x:DataType="vm:EditPersonaViewModel">
+
+    <UserControl.Styles>
+
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style Selector="TextBlock.field-label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Opacity" Value="0.7"/>
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
+
+        <StackPanel Grid.Row="0"
+                    Spacing="4">
+
+            <TextBlock Text="Editar persona"
+                       FontSize="28"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Modifica los datos de la persona."
+                       FontSize="14"
+                       Opacity="0.7"/>
+
+        </StackPanel>
+
+
+        <!-- Campos -->
+
+        <Border Grid.Row="1"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="20">
+
+            <Grid RowDefinitions="Auto,Auto,Auto"
+                  ColumnDefinitions="*,*"
+                  RowSpacing="14"
+                  ColumnSpacing="16">
+
+                <TextBlock Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Text="Datos de la persona"
+                           Classes="section-title"/>
+
+
+                <!-- Nombre -->
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Nombre"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding Nombre}"
+                             PlaceholderText="Nombre"/>
+
+                </StackPanel>
+
+
+                <!-- Segundo nombre -->
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="5">
+
+                    <TextBlock Text="Segundo nombre"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding SegundoNombre}"
+                             PlaceholderText="Opcional"/>
+
+                </StackPanel>
+
+
+                <!-- Primer apellido -->
+
+                <StackPanel Grid.Row="2"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Primer apellido"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding PrimerApellido}"
+                             PlaceholderText="Primer apellido"/>
+
+                </StackPanel>
+
+
+                <!-- Segundo apellido -->
+
+                <StackPanel Grid.Row="2"
+                            Grid.Column="1"
+                            Spacing="5">
+
+                    <TextBlock Text="Segundo apellido"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding SegundoApellido}"
+                             PlaceholderText="Segundo apellido"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- Botones -->
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="12">
+
+            <Button Content="Cancelar"
+                    Command="{Binding CancelarCommand}"
+                    Padding="18,10"/>
+
+            <Button Content="Guardar"
+                    Command="{Binding GuardarCommand}"
+                    Padding="18,10"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

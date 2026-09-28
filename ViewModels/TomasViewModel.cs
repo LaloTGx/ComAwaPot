@@ -11,11 +11,11 @@ public partial class TomasViewModel : ObservableObject
 {
     private readonly TomaService _tomaService;
 
+    public event Func<int, Task>? SolicitarDetallePersona;
+
     public ObservableCollection<Toma> Tomas { get; } = [];
 
     public ObservableCollection<Toma> TomasFiltradas { get; } = [];
-
-    public event Func<int, Task>? SolicitarDetalleToma;
 
     [ObservableProperty]
     private string textoBusqueda = string.Empty;
@@ -55,8 +55,12 @@ public partial class TomasViewModel : ObservableObject
             ? Tomas
             : Tomas.Where(t =>
                 t.NumeroContrato.ToString().Contains(texto) ||
-                t.Calle.Contains(texto, StringComparison.OrdinalIgnoreCase) ||
-                t.Persona.Nombre.Contains(texto, StringComparison.OrdinalIgnoreCase));
+                t.Persona.NombreCompleto.Contains(
+                    texto,
+                    StringComparison.OrdinalIgnoreCase) ||
+                t.Calle.Contains(
+                    texto,
+                    StringComparison.OrdinalIgnoreCase));
 
         TomasFiltradas.Clear();
 
@@ -66,19 +70,14 @@ public partial class TomasViewModel : ObservableObject
         }
     }
 
-    partial void OnTomaSeleccionadaChanged(Toma? value)
-    {
-        // Aquí despues cargaremos el detalle de la toma.
-    }
-
     [RelayCommand]
 	private async Task SeleccionarToma(Toma toma)
 	{
 	    TomaSeleccionada = toma;
 
-	    if (SolicitarDetalleToma is not null)
+	    if (SolicitarDetallePersona is not null)
 	    {
-	        await SolicitarDetalleToma(toma.TomaId);
+	        await SolicitarDetallePersona(toma.PersonaId);
 	    }
 	}
 }

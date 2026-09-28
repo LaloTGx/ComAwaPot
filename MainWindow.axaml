@@ -10,6 +10,7 @@
         x:Class="ComAwaPot.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="ComAwaPot"
+        Icon="/Assets/gota.ico"
         Width="1100"
         Height="700"
         MinWidth="900"
@@ -67,9 +68,6 @@
             <views:NewTomaView />
         </DataTemplate>
 
-        <DataTemplate DataType="vm:TomaDetalleViewModel">
-            <views:TomaDetalleView />
-        </DataTemplate>
 
     </Window.DataTemplates>
 
@@ -197,6 +195,46 @@
             </Border>
 
         </Grid>
+
+        <Grid IsVisible="{Binding MostrarEditarPersona}">
+
+		    <Border Background="#80000000"
+		            PointerPressed="CerrarEditarPersona_Click"/>
+
+		    <Border Width="700"
+		            MaxHeight="500"
+		            Background="#18181B"
+		            CornerRadius="10"
+		            HorizontalAlignment="Center"
+		            VerticalAlignment="Center"
+		            Padding="32">
+
+		        <views:EditPersonaView
+		            DataContext="{Binding EditPersonaViewModel}"/>
+
+		    </Border>
+
+		</Grid>
+
+        <Grid IsVisible="{Binding MostrarNuevaToma}">
+
+		    <Border Background="#80000000"
+		            PointerPressed="CerrarNuevaToma_Click"/>
+
+		    <Border Width="700"
+		            MaxHeight="500"
+		            Background="#18181B"
+		            CornerRadius="10"
+		            HorizontalAlignment="Center"
+		            VerticalAlignment="Center"
+		            Padding="32">
+
+		        <views:NewTomaView
+		            DataContext="{Binding NewTomaViewModel}"/>
+
+		    </Border>
+
+	    </Grid>
 
     </Grid>
 

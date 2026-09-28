@@ -20,4 +20,24 @@ public partial class MainWindow : Window
             viewModel.CerrarNuevaPersona();
         }
     }
+
+    private void CerrarEditarPersona_Click(
+	    object? sender,
+	    PointerPressedEventArgs e)
+	{
+	    if (DataContext is MainWindowViewModel viewModel)
+	    {
+	        viewModel.CerrarEditarPersona();
+	    }
+	}
+
+    private void CerrarNuevaToma_Click(
+	    object? sender,
+	    PointerPressedEventArgs e)
+	{
+	    if (DataContext is MainWindowViewModel viewModel)
+	    {
+	        viewModel.CerrarNuevaToma();
+	    }
+	}
 }

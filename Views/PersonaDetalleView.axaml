@@ -47,6 +47,7 @@
 
             <Button Grid.Column="1"
                     Content="Editar persona"
+                    Command="{Binding EditarPersonaCommand}"
                     Padding="18,10"/>
 
         </Grid>
@@ -123,7 +124,7 @@
                                    Opacity="0.7"/>
 
                         <TextBlock Grid.Column="2"
-                                   Text="Num. ext."
+                                   Text="Número"
                                    FontWeight="Bold"
                                    Opacity="0.7"
                                    HorizontalAlignment="Center"/>
@@ -145,33 +146,33 @@
 
                                 <DataTemplate>
 
-                                    <Button Classes="table-button"
-                                            Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
-                                            CommandParameter="{Binding}">
+<Button Classes="table-button"
+        Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
+        CommandParameter="{Binding}">
 
-                                        <Grid ColumnDefinitions="120,*,100,100">
+    <Grid ColumnDefinitions="120,*,100,100">
 
-                                            <TextBlock Grid.Column="0"
-                                                       Text="{Binding NumeroContrato}"
-                                                       VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0"
+                   Text="{Binding NumeroContrato}"
+                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding Calle}"
-                                                       VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1"
+                   Text="{Binding Calle}"
+                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="2"
-                                                       Text="{Binding NumExt}"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="2"
+                   Text="{Binding NumExt}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-                                            <TextBlock Grid.Column="3"
-                                                       Text="{Binding Estado}"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="3"
+                   Text="{Binding Estado}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-                                        </Grid>
+    </Grid>
 
-                                    </Button>
+</Button>
 
                                 </DataTemplate>
 

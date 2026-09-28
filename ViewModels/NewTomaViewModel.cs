@@ -14,6 +14,10 @@ public partial class NewTomaViewModel : ObservableObject
     public static Situacion[] Estados { get; } =
         Enum.GetValues<Situacion>();
 
+    public event Func<Task>? TomaCreada;
+
+    public event Func<Task>? CancelarSolicitado;
+
     [ObservableProperty]
     private int numeroContrato;
 
@@ -25,8 +29,6 @@ public partial class NewTomaViewModel : ObservableObject
 
     [ObservableProperty]
     private Situacion estado = Situacion.Activa;
-
-    public event Func<Task>? TomaCreada;
 
     public NewTomaViewModel(TomaService tomaService)
     {
@@ -44,8 +46,20 @@ public partial class NewTomaViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task Cancelar()
+    {
+        if (CancelarSolicitado is not null)
+        {
+            await CancelarSolicitado();
+        }
+    }
+
+    [RelayCommand]
     private async Task Guardar()
     {
+        if (_personaId <= 0)
+            return;
+
         if (NumeroContrato <= 0)
             return;
 
@@ -67,11 +81,7 @@ public partial class NewTomaViewModel : ObservableObject
         var tomaCreada = await _tomaService.CrearAsync(toma);
 
         if (tomaCreada is null)
-        {
-            // Posteriormente aquí podremos mostrar
-            // una notificación de error.
             return;
-        }
 
         NumeroContrato = 0;
         Calle = string.Empty;
