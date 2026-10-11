@@ -133,6 +133,81 @@ public class TomaService
         return true;
     }
 
+    // Actualizar todos los datos de una toma y su situación
+	public async Task<bool> ActualizarCompletaAsync(
+	    Toma toma,
+	    Situacion nuevoEstado,
+	    DateTime fechaInicio)
+	{
+	    using var db = new AppDbContext(_dbOptions);
+
+	    await using var transaction =
+	        await db.Database.BeginTransactionAsync();
+
+	    var tomaExistente = await db.Tomas
+	        .FirstOrDefaultAsync(t => t.TomaId == toma.TomaId);
+
+	    if (tomaExistente is null)
+	    {
+	        return false;
+	    }
+
+	    // Validar los datos
+	    if (toma.NumeroContrato <= 0 ||
+	        string.IsNullOrWhiteSpace(toma.Calle) ||
+	        toma.NumExt <= 0)
+	    {
+	        return false;
+	    }
+
+	    // Evitar contratos duplicados
+	    var contratoExiste = await db.Tomas
+	        .AnyAsync(t =>
+	            t.NumeroContrato == toma.NumeroContrato &&
+	            t.TomaId != toma.TomaId);
+
+	    if (contratoExiste)
+	    {
+	        return false;
+	    }
+
+	    // Si cambia la situación, actualizar el historial
+	    if (tomaExistente.Estado != nuevoEstado)
+	    {
+	        var historialActual = await db.HistorialSituaciones
+	            .FirstOrDefaultAsync(h =>
+	                h.TomaId == toma.TomaId &&
+	                h.FechaFin == null);
+
+	        if (historialActual is null)
+	        {
+	            return false;
+	        }
+
+	        historialActual.FechaFin = fechaInicio;
+
+	        db.HistorialSituaciones.Add(new HistorialSituacion
+	        {
+	            TomaId = toma.TomaId,
+	            Estado = nuevoEstado,
+	            FechaInicio = fechaInicio,
+	            FechaFin = null
+	        });
+
+	        tomaExistente.Estado = nuevoEstado;
+	    }
+
+	    // Actualizar los datos generales
+	    tomaExistente.NumeroContrato = toma.NumeroContrato;
+	    tomaExistente.Calle = toma.Calle.Trim();
+	    tomaExistente.NumExt = toma.NumExt;
+
+	    await db.SaveChangesAsync();
+	    await transaction.CommitAsync();
+
+	    return true;
+	}
+
     // Cambiar situación
     public async Task<HistorialSituacion?> CambiarSituacionAsync(
         int tomaId,

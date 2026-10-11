@@ -1,0 +1,131 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.EditTomaView"
+             x:DataType="vm:EditTomaViewModel">
+
+    <UserControl.Styles>
+
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style Selector="TextBlock.field-label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Opacity" Value="0.7"/>
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
+        <StackPanel Grid.Row="0"
+                    Spacing="4">
+
+            <TextBlock Text="Editar toma"
+                       FontSize="28"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Modifica los datos y la situación de la toma."
+                       FontSize="14"
+                       Opacity="0.7"/>
+
+        </StackPanel>
+
+        <!-- Datos -->
+        <Border Grid.Row="1"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="20">
+
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                  ColumnDefinitions="*,*"
+                  RowSpacing="14"
+                  ColumnSpacing="16">
+
+                <TextBlock Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Text="Datos de la toma"
+                           Classes="section-title"/>
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Número de contrato"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding NumeroContrato}"
+                             PlaceholderText="Número de contrato"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="5">
+
+                    <TextBlock Text="Estado"
+                               Classes="field-label"/>
+
+                    <ComboBox SelectedItem="{Binding Estado}"
+                              ItemsSource="{Binding Source={x:Static vm:EditTomaViewModel.Estados}}"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Spacing="5">
+
+                    <TextBlock Text="Calle"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding Calle}"
+                             PlaceholderText="Nombre de la calle"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Spacing="5">
+
+                    <TextBlock Text="Número"
+                               Classes="field-label"/>
+
+                    <TextBox Text="{Binding NumExt}"
+                             PlaceholderText="Número"/>
+
+                </StackPanel>
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Text="{Binding MensajeError}"
+                           Foreground="#F87171"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Botones -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="12">
+
+            <Button Content="Cancelar"
+                    Command="{Binding CancelarCommand}"
+                    Padding="18,10"/>
+
+            <Button Content="Guardar cambios"
+                    Command="{Binding GuardarCommand}"
+                    Padding="18,10"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

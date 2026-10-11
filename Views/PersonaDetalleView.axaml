@@ -53,40 +53,10 @@
         </Grid>
 
         <!-- Contenido -->
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,2*"
-              ColumnSpacing="24">
-
-            <!-- Información -->
-            <Border Grid.Column="0"
-                    Background="#18181B"
-                    CornerRadius="8"
-                    Padding="20">
-
-                <StackPanel Spacing="16">
-
-                    <TextBlock Text="Información"
-                               FontSize="20"
-                               FontWeight="Bold"/>
-
-                    <StackPanel Spacing="4">
-
-                        <TextBlock Text="Nombre"
-                                   FontSize="13"
-                                   Opacity="0.6"/>
-
-                        <TextBlock Text="{Binding Persona.NombreCompleto}"
-                                   FontSize="17"/>
-
-                    </StackPanel>
-
-                </StackPanel>
-
-            </Border>
+        <Grid Grid.Row="1">
 
             <!-- Tomas -->
-            <Border Grid.Column="1"
-                    Background="#18181B"
+            <Border Background="#18181B"
                     CornerRadius="8"
                     Padding="20">
 

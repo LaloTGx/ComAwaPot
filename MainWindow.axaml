@@ -236,6 +236,22 @@
 
 	    </Grid>
 
+        <Grid IsVisible="{Binding MostrarEditarToma}">
+	        <Border Background="#80000000"
+	                PointerPressed="CerrarEditarToma_Click"/>
+
+	        <Border Width="700"
+	                MaxHeight="500"
+	                Background="#18181B"
+	                CornerRadius="10"
+	                HorizontalAlignment="Center"
+	                VerticalAlignment="Center"
+	                Padding="32">
+	            <views:EditTomaView
+	                DataContext="{Binding EditTomaViewModel}"/>
+	        </Border>
+	    </Grid>
+
     </Grid>
 
 </Window>

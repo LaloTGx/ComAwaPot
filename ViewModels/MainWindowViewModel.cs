@@ -10,6 +10,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly PersonaDetalleViewModel _personaDetalleViewModel;
     private readonly TomasViewModel _tomasViewModel;
     private readonly NewTomaViewModel _newTomaViewModel;
+    private readonly EditTomaViewModel _editTomaViewModel;
     private readonly NewPersonaViewModel _newPersonaViewModel;
     private readonly EditPersonaViewModel _editPersonaViewModel;
 
@@ -25,13 +26,18 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private bool mostrarNuevaToma;
 
+
+    [ObservableProperty]
+    private bool mostrarEditarToma;
+
     public MainWindowViewModel(
         PersonasViewModel personasViewModel,
         TomasViewModel tomasViewModel,
         PersonaDetalleViewModel personaDetalleViewModel,
         NewTomaViewModel newTomaViewModel,
         NewPersonaViewModel newPersonaViewModel,
-        EditPersonaViewModel editPersonaViewModel)
+        EditPersonaViewModel editPersonaViewModel,
+        EditTomaViewModel editTomaViewModel)
     {
         _personasViewModel = personasViewModel;
         _personaDetalleViewModel = personaDetalleViewModel;
@@ -39,6 +45,7 @@ public partial class MainWindowViewModel : ObservableObject
         _newTomaViewModel = newTomaViewModel;
         _newPersonaViewModel = newPersonaViewModel;
         _editPersonaViewModel = editPersonaViewModel;
+        _editTomaViewModel = editTomaViewModel;
 
         _personasViewModel.SolicitarNuevaPersona += AbrirNuevaPersonaAsync;
         _personasViewModel.SolicitarDetallePersona += MostrarDetallePersonaAsync;
@@ -48,6 +55,9 @@ public partial class MainWindowViewModel : ObservableObject
         _newTomaViewModel.TomaCreada += VolverAPersonaDetalleAsync;
         _newTomaViewModel.CancelarSolicitado += CerrarNuevaTomaAsync;
 
+        _editTomaViewModel.TomaActualizada += TomaActualizadaAsync;
+        _editTomaViewModel.CancelarSolicitado += CerrarEditarTomaAsync;
+
         _newPersonaViewModel.PersonaCreada += PersonaCreadaAsync;
         _newPersonaViewModel.CancelarSolicitado += CerrarNuevaPersonaAsync;
 
@@ -56,6 +66,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         _personaDetalleViewModel.SolicitarNuevaToma += MostrarNuevaTomaAsync;
         _personaDetalleViewModel.SolicitarEditarPersona += AbrirEditarPersonaAsync;
+        _personaDetalleViewModel.SolicitarEditarToma += AbrirEditarTomaAsync;
 
         currentViewModel = new HomeViewModel();
     }
@@ -68,6 +79,9 @@ public partial class MainWindowViewModel : ObservableObject
 
     public NewTomaViewModel NewTomaViewModel =>
         _newTomaViewModel;
+
+    public EditTomaViewModel EditTomaViewModel =>
+        _editTomaViewModel;
 
     [RelayCommand]
     private void MostrarInicio()
@@ -117,6 +131,39 @@ public partial class MainWindowViewModel : ObservableObject
         await MostrarDetallePersonaAsync(
             _personaDetalleViewModel.Persona.PersonaId);
     }
+
+	private async Task AbrirEditarTomaAsync(Toma toma)
+	{
+	    _editTomaViewModel.PrepararParaToma(toma);
+
+	    MostrarEditarToma = true;
+
+	    await Task.CompletedTask;
+	}
+
+	private async Task TomaActualizadaAsync()
+	{
+	    MostrarEditarToma = false;
+
+	    if (_personaDetalleViewModel.Persona is null)
+	        return;
+
+	    await MostrarDetallePersonaAsync(
+	        _personaDetalleViewModel.Persona.PersonaId);
+	}
+
+	private async Task CerrarEditarTomaAsync()
+	{
+	    MostrarEditarToma = false;
+
+	    await Task.CompletedTask;
+	}
+
+	[RelayCommand]
+	public void CerrarEditarToma()
+	{
+	    MostrarEditarToma = false;
+	}
 
     private async Task CerrarNuevaTomaAsync()
     {

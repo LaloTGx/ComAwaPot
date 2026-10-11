@@ -40,4 +40,14 @@ public partial class MainWindow : Window
 	        viewModel.CerrarNuevaToma();
 	    }
 	}
+
+    private void CerrarEditarToma_Click(
+	    object? sender,
+	    PointerPressedEventArgs e)
+	{
+	    if (DataContext is MainWindowViewModel viewModel)
+	    {
+	        viewModel.CerrarEditarToma();
+	    }
+	}
 }

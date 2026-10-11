@@ -19,6 +19,8 @@ public partial class PersonaDetalleViewModel : ObservableObject
 
     public event Func<Persona, Task>? SolicitarEditarPersona;
 
+    public event Func<Toma, Task>? SolicitarEditarToma;
+
     public PersonaDetalleViewModel(PersonaService personaService)
     {
         _personaService = personaService;
@@ -63,6 +65,15 @@ public partial class PersonaDetalleViewModel : ObservableObject
         if (SolicitarEditarPersona is not null)
         {
             await SolicitarEditarPersona(Persona);
+        }
+    }
+
+    [RelayCommand]
+    private async Task SeleccionarToma(Toma toma)
+    {
+        if (SolicitarEditarToma is not null)
+        {
+            await SolicitarEditarToma(toma);
         }
     }
 }

@@ -34,6 +34,7 @@ public App()
 
     services.AddTransient<TomasViewModel>();
     services.AddTransient<NewTomaViewModel>();
+    services.AddTransient<EditTomaViewModel>();
 
     Services = services.BuildServiceProvider();
 }
