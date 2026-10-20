@@ -35,11 +35,12 @@ public partial class NewTomaViewModel : ObservableObject
         _tomaService = tomaService;
     }
 
-    public void PrepararParaPersona(int personaId)
+    public async Task PrepararParaPersonaAsync(int personaId)
     {
         _personaId = personaId;
 
-        NumeroContrato = 0;
+        NumeroContrato =
+            await _tomaService.ObtenerSiguienteNumeroContratoAsync();
         Calle = string.Empty;
         NumExt = 0;
         Estado = Situacion.Activa;

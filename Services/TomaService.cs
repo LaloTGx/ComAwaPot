@@ -54,6 +54,18 @@ public class TomaService
         return toma;
     }
 
+    // Obtener siguiente numero
+    public async Task<int> ObtenerSiguienteNumeroContratoAsync()
+{
+    using var db = new AppDbContext(_dbOptions);
+
+    var ultimoContrato = await db.Tomas
+        .Select(t => (int?)t.NumeroContrato)
+        .MaxAsync();
+
+    return (ultimoContrato ?? 0) + 1;
+}
+
     // Obtener toma por ID
     public async Task<Toma?> ObtenerPorIdAsync(int tomaId)
     {

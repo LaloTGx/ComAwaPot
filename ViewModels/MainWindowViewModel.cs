@@ -114,7 +114,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     private async Task MostrarNuevaTomaAsync(int personaId)
     {
-        _newTomaViewModel.PrepararParaPersona(personaId);
+        await _newTomaViewModel.PrepararParaPersonaAsync(personaId);
 
         MostrarNuevaToma = true;
 
@@ -180,6 +180,8 @@ public partial class MainWindowViewModel : ObservableObject
 
     private async Task AbrirNuevaPersonaAsync()
     {
+        await _newPersonaViewModel.PrepararAsync();
+
         MostrarNuevaPersona = true;
 
         await Task.CompletedTask;

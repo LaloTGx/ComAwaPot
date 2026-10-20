@@ -8,6 +8,7 @@ namespace ComAwaPot.ViewModels;
 public partial class NewPersonaViewModel : ObservableObject
 {
     private readonly PersonaService _personaService;
+    private readonly TomaService _tomaService;
 
     public static Situacion[] Estados { get; } =
         Enum.GetValues<Situacion>();
@@ -48,10 +49,28 @@ public partial class NewPersonaViewModel : ObservableObject
     [ObservableProperty]
     private Situacion estado = Situacion.Activa;
 
-    public NewPersonaViewModel(PersonaService personaService)
+    public NewPersonaViewModel(
+        PersonaService personaService,
+        TomaService tomaService)
     {
         _personaService = personaService;
+        _tomaService = tomaService;
     }
+
+    public async Task PrepararAsync()
+	{
+	    Nombre = string.Empty;
+	    SegundoNombre = string.Empty;
+	    PrimerApellido = string.Empty;
+	    SegundoApellido = string.Empty;
+
+	    NumeroContrato =
+	        await _tomaService.ObtenerSiguienteNumeroContratoAsync();
+
+	    Calle = string.Empty;
+	    NumExt = 0;
+	    Estado = Situacion.Activa;
+	}
 
     [RelayCommand]
     private async Task Guardar()
