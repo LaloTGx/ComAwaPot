@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="using:ComAwaPot.Models"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             xmlns:views="using:ComAwaPot.Views"
+             x:Class="ComAwaPot.Views.TarifasView"
+             x:DataType="vm:TarifasViewModel">
+
+    <Grid>
+
+        <!-- Página de tarifas -->
+        <Grid Margin="24"
+              RowDefinitions="Auto,*">
+
+            <StackPanel Spacing="6">
+                <TextBlock Text="Tarifas"
+                           FontSize="28"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="Administra las cuotas mensuales del comité."
+                           Opacity="0.7"/>
+
+                <Button Content="Nueva tarifa"
+                        Command="{Binding NuevaTarifaCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="0,12,0,16"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1"
+                  RowDefinitions="Auto,*">
+
+                <Border Background="#27272A"
+                        CornerRadius="6,6,0,0"
+                        Padding="12">
+
+                    <Grid ColumnDefinitions="*,*,*">
+                        <TextBlock Text="Tipo"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="Periodo"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="Monto mensual"
+                                   FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding Tarifas}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Tarifa">
+                                <Border BorderBrush="#3F3F46"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="12">
+
+                                    <Grid ColumnDefinitions="*,*,*">
+                                        <TextBlock Text="{Binding Tipo}"
+                                                   VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Periodo, StringFormat='{}{0:MMMM yyyy}'}"
+                                                   VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding MontoMensual, StringFormat='{}{0:C2}'}"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <!-- Overlay modal -->
+        <Grid IsVisible="{Binding MostrandoFormulario}"
+              Background="#99000000"
+              ZIndex="10">
+
+            <Border MaxWidth="520"
+                    Width="520"
+                    MaxHeight="600"
+                    Margin="20"
+                    Padding="24"
+                    Background="#18181B"
+                    BorderBrush="#404040"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                <ScrollViewer>
+                    <views:NewTarifaView/>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

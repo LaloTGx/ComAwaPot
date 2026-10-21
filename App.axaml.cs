@@ -24,6 +24,7 @@ public App()
 
     services.AddTransient<PersonaService>();
     services.AddTransient<TomaService>();
+    services.AddTransient<TarifaService>();
 
     services.AddTransient<MainWindowViewModel>();
 
@@ -35,6 +36,8 @@ public App()
     services.AddTransient<TomasViewModel>();
     services.AddTransient<NewTomaViewModel>();
     services.AddTransient<EditTomaViewModel>();
+
+    services.AddTransient<TarifasViewModel>();
 
     Services = services.BuildServiceProvider();
 }

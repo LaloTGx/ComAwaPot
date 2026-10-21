@@ -13,6 +13,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly EditTomaViewModel _editTomaViewModel;
     private readonly NewPersonaViewModel _newPersonaViewModel;
     private readonly EditPersonaViewModel _editPersonaViewModel;
+    private readonly TarifasViewModel _tarifasViewModel;
 
     [ObservableProperty]
     private ObservableObject currentViewModel;
@@ -37,7 +38,8 @@ public partial class MainWindowViewModel : ObservableObject
         NewTomaViewModel newTomaViewModel,
         NewPersonaViewModel newPersonaViewModel,
         EditPersonaViewModel editPersonaViewModel,
-        EditTomaViewModel editTomaViewModel)
+        EditTomaViewModel editTomaViewModel,
+        TarifasViewModel tarifasViewModel)
     {
         _personasViewModel = personasViewModel;
         _personaDetalleViewModel = personaDetalleViewModel;
@@ -46,6 +48,7 @@ public partial class MainWindowViewModel : ObservableObject
         _newPersonaViewModel = newPersonaViewModel;
         _editPersonaViewModel = editPersonaViewModel;
         _editTomaViewModel = editTomaViewModel;
+        _tarifasViewModel = tarifasViewModel;
 
         _personasViewModel.SolicitarNuevaPersona += AbrirNuevaPersonaAsync;
         _personasViewModel.SolicitarDetallePersona += MostrarDetallePersonaAsync;
@@ -239,4 +242,12 @@ public partial class MainWindowViewModel : ObservableObject
     {
         MostrarEditarPersona = false;
     }
+
+    [RelayCommand]
+	private async Task MostrarTarifas()
+	{
+	    await _tarifasViewModel.CargarTarifasAsync();
+
+	    CurrentViewModel = _tarifasViewModel;
+	}
 }

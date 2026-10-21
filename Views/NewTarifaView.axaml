@@ -1,0 +1,99 @@
+ <UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ComAwaPot.ViewModels"
+             x:Class="ComAwaPot.Views.NewTarifaView"
+             x:DataType="vm:TarifasViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.field-label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Opacity" Value="0.7"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="Nueva tarifa"
+                       FontSize="26"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Configura la cuota mensual del comité."
+                       FontSize="14"
+                       Opacity="0.7"/>
+        </StackPanel>
+
+        <!-- Formulario -->
+        <Border Grid.Row="1"
+                Background="#18181B"
+                CornerRadius="8"
+                Padding="20">
+
+            <StackPanel Spacing="14">
+
+                <TextBlock Text="Datos de la tarifa"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Tipo de tarifa"
+                               Classes="field-label"/>
+
+                    <ComboBox ItemsSource="{Binding Tipos}"
+                              SelectedItem="{Binding Tipo}"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Periodo"
+                               Classes="field-label"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="10">
+
+                        <ComboBox Grid.Column="0"
+                                  ItemsSource="{Binding Meses}"
+                                  SelectedItem="{Binding MesSeleccionado}"
+                                  PlaceholderText="Mes"/>
+
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding Anios}"
+                                  SelectedItem="{Binding AnioSeleccionado}"
+                                  PlaceholderText="Año"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Monto mensual"
+                               Classes="field-label"/>
+
+                    <NumericUpDown Value="{Binding MontoMensual}"
+                                   Minimum="0"
+                                   Increment="10"
+                                   FormatString="0.00"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding Mensaje}"
+                           Foreground="Tomato"
+                           TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Botones -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="12">
+
+            <Button Content="Cancelar"
+                    Command="{Binding CancelarCommand}"
+                    Padding="18,10"/>
+
+            <Button Content="Guardar"
+                    Command="{Binding GuardarCommand}"
+                    Padding="18,10"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

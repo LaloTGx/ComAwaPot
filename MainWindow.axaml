@@ -68,6 +68,9 @@
             <views:NewTomaView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:TarifasViewModel}">
+            <views:TarifasView />
+        </DataTemplate>
 
     </Window.DataTemplates>
 
@@ -126,7 +129,8 @@
                         <Separator/>
 
                         <Button Classes="menu-button"
-                                Content="Tarifas"/>
+                                Content="Tarifas"
+                                Command="{Binding MostrarTarifasCommand}"/>
 
                         <Separator/>
 
