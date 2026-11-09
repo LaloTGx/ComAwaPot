@@ -14,6 +14,9 @@ public class Toma
 
     public Situacion Estado { get; set; }
 
+    public TipoTarifa TipoTarifa { get; set; } =
+    global::ComAwaPot.Models.TipoTarifa.Domestica;
+
     public Persona Persona { get; set; } = null!;
 
     public ICollection<HistorialSituacion> HistorialSituaciones { get; set; }

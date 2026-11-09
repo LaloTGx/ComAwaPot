@@ -279,6 +279,9 @@ namespace ComAwaPot.Migrations
                     b.Property<int>("PersonaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TipoTarifa")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("TomaId");
 
                     b.HasIndex("Calle");

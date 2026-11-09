@@ -2,6 +2,7 @@ using ComAwaPot.Models;
 using ComAwaPot.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TipoTarifaEnum = ComAwaPot.Models.TipoTarifa;
 
 namespace ComAwaPot.ViewModels;
 
@@ -33,6 +34,9 @@ public partial class NewPersonaViewModel : ObservableObject
     [ObservableProperty]
     private string segundoApellido = string.Empty;
 
+    [ObservableProperty]
+    private TipoTarifaEnum tipoTarifa = TipoTarifaEnum.Domestica;
+
     // -------------------------
     // Datos de la primera toma
     // -------------------------
@@ -57,6 +61,23 @@ public partial class NewPersonaViewModel : ObservableObject
         _tomaService = tomaService;
     }
 
+	[RelayCommand]
+	private void AlternarTipoTarifa()
+	{
+	    TipoTarifa = TipoTarifa == TipoTarifaEnum.Domestica
+	        ? TipoTarifaEnum.Comercial
+	        : TipoTarifaEnum.Domestica;
+	}
+
+    [RelayCommand]
+	private async Task Cancelar()
+	{
+	    if (CancelarSolicitado is not null)
+	    {
+	        await CancelarSolicitado();
+	    }
+	}
+
     public async Task PrepararAsync()
 	{
 	    Nombre = string.Empty;
@@ -70,6 +91,7 @@ public partial class NewPersonaViewModel : ObservableObject
 	    Calle = string.Empty;
 	    NumExt = 0;
 	    Estado = Situacion.Activa;
+	    TipoTarifa = TipoTarifaEnum.Domestica;
 	}
 
     [RelayCommand]
@@ -113,7 +135,8 @@ public partial class NewPersonaViewModel : ObservableObject
             NumeroContrato = NumeroContrato,
             Calle = Calle.Trim(),
             NumExt = NumExt,
-            Estado = Estado
+            Estado = Estado,
+            TipoTarifa = TipoTarifa
         };
 
         var creada = await _personaService
@@ -141,14 +164,7 @@ public partial class NewPersonaViewModel : ObservableObject
         Calle = string.Empty;
         NumExt = 0;
         Estado = Situacion.Activa;
+        TipoTarifa = TipoTarifaEnum.Domestica;
     }
 
-    [RelayCommand]
-	private async Task Cancelar()
-	{
-	    if (CancelarSolicitado is not null)
-	    {
-	        await CancelarSolicitado();
-	    }
-	}
 }

@@ -2,6 +2,7 @@ using ComAwaPot.Models;
 using ComAwaPot.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TipoTarifaEnum = ComAwaPot.Models.TipoTarifa;
 
 namespace ComAwaPot.ViewModels;
 
@@ -30,6 +31,9 @@ public partial class NewTomaViewModel : ObservableObject
     [ObservableProperty]
     private Situacion estado = Situacion.Activa;
 
+    [ObservableProperty]
+    private TipoTarifaEnum tipoTarifa = TipoTarifaEnum.Domestica;
+
     public NewTomaViewModel(TomaService tomaService)
     {
         _tomaService = tomaService;
@@ -44,7 +48,16 @@ public partial class NewTomaViewModel : ObservableObject
         Calle = string.Empty;
         NumExt = 0;
         Estado = Situacion.Activa;
+        TipoTarifa = TipoTarifa.Domestica;
     }
+
+    [RelayCommand]
+	private void AlternarTipoTarifa()
+	{
+	    TipoTarifa = TipoTarifa == TipoTarifaEnum.Domestica
+	        ? TipoTarifaEnum.Comercial
+	        : TipoTarifaEnum.Domestica;
+	}
 
     [RelayCommand]
     private async Task Cancelar()
@@ -76,7 +89,8 @@ public partial class NewTomaViewModel : ObservableObject
             PersonaId = _personaId,
             Calle = Calle.Trim(),
             NumExt = NumExt,
-            Estado = Estado
+            Estado = Estado,
+            TipoTarifa = TipoTarifa
         };
 
         var tomaCreada = await _tomaService.CrearAsync(toma);

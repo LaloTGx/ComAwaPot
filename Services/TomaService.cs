@@ -139,6 +139,7 @@ public class TomaService
         tomaExistente.NumeroContrato = toma.NumeroContrato;
         tomaExistente.Calle = toma.Calle;
         tomaExistente.NumExt = toma.NumExt;
+        tomaExistente.TipoTarifa = toma.TipoTarifa;
 
         await db.SaveChangesAsync();
 
@@ -213,6 +214,7 @@ public class TomaService
 	    tomaExistente.NumeroContrato = toma.NumeroContrato;
 	    tomaExistente.Calle = toma.Calle.Trim();
 	    tomaExistente.NumExt = toma.NumExt;
+        tomaExistente.TipoTarifa = toma.TipoTarifa;
 
 	    await db.SaveChangesAsync();
 	    await transaction.CommitAsync();

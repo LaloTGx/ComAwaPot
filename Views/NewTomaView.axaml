@@ -41,7 +41,7 @@
                 CornerRadius="8"
                 Padding="20">
 
-            <Grid RowDefinitions="Auto,Auto,Auto"
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
                   ColumnDefinitions="*,*"
                   RowSpacing="14"
                   ColumnSpacing="16">
@@ -63,6 +63,22 @@
                              PlaceholderText="Número de contrato"/>
 
                 </StackPanel>
+
+                <!-- Tipo de tarifa -->
+				<StackPanel Grid.Row="3"
+				            Grid.ColumnSpan="2"
+				            Spacing="5">
+
+				    <TextBlock Text="Tipo de tarifa"
+				               Classes="field-label"/>
+
+				    <Button Content="{Binding TipoTarifa}"
+				            Command="{Binding AlternarTipoTarifaCommand}"
+				            HorizontalAlignment="Stretch"
+				            HorizontalContentAlignment="Center"
+				            Padding="12,10"/>
+
+				</StackPanel>
 
                 <!-- Estado -->
                 <StackPanel Grid.Row="1"

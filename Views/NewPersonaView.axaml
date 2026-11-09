@@ -22,7 +22,6 @@
           RowSpacing="20">
 
         <!-- Encabezado -->
-
         <StackPanel Grid.Row="0"
                     Spacing="4">
 
@@ -36,9 +35,7 @@
 
         </StackPanel>
 
-
         <!-- Datos de la persona -->
-
         <Border Grid.Row="1"
                 Background="#18181B"
                 CornerRadius="8"
@@ -54,7 +51,6 @@
                            Text="Datos de la persona"
                            Classes="section-title"/>
 
-
                 <StackPanel Grid.Row="1"
                             Grid.Column="0"
                             Spacing="5">
@@ -66,7 +62,6 @@
                              PlaceholderText="Nombre"/>
 
                 </StackPanel>
-
 
                 <StackPanel Grid.Row="1"
                             Grid.Column="1"
@@ -80,7 +75,6 @@
 
                 </StackPanel>
 
-
                 <StackPanel Grid.Row="2"
                             Grid.Column="0"
                             Spacing="5">
@@ -92,7 +86,6 @@
                              PlaceholderText="Primer apellido"/>
 
                 </StackPanel>
-
 
                 <StackPanel Grid.Row="2"
                             Grid.Column="1"
@@ -110,14 +103,11 @@
 
         </Border>
 
-
         <!-- Primera toma -->
-
         <Border Grid.Row="2"
                 Background="#18181B"
                 CornerRadius="8"
-                Padding="20"
-                VerticalAlignment="Top">
+                Padding="20">
 
             <Grid RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="*,*"
@@ -128,7 +118,6 @@
                            Grid.ColumnSpan="2"
                            Text="Primera toma"
                            Classes="section-title"/>
-
 
                 <StackPanel Grid.Row="1"
                             Grid.Column="0"
@@ -142,7 +131,6 @@
 
                 </StackPanel>
 
-
                 <StackPanel Grid.Row="1"
                             Grid.Column="1"
                             Spacing="5">
@@ -155,7 +143,6 @@
 
                 </StackPanel>
 
-
                 <StackPanel Grid.Row="2"
                             Grid.Column="0"
                             Spacing="5">
@@ -167,7 +154,6 @@
                              PlaceholderText="Calle"/>
 
                 </StackPanel>
-
 
                 <StackPanel Grid.Row="2"
                             Grid.Column="1"
@@ -185,23 +171,44 @@
 
         </Border>
 
+        <!-- Selector de tarifa y botones -->
+        <Grid Grid.Row="3"
+              ColumnDefinitions="*,Auto">
 
-        <!-- Botones -->
+            <!-- Selector de tarifa -->
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Spacing="10">
 
-        <StackPanel Grid.Row="3"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Spacing="12">
+                <TextBlock Text="Tipo de tarifa:"
+                           Classes="field-label"
+                           VerticalAlignment="Center"/>
 
-            <Button Content="Cancelar"
-                    Command="{Binding CancelarCommand}"
-                    Padding="18,10"/>
+                <Button Content="{Binding TipoTarifa}"
+                        Command="{Binding AlternarTipoTarifaCommand}"
+                        Padding="16,10"
+                        MinWidth="120"/>
 
-            <Button Content="Guardar"
-                    Command="{Binding GuardarCommand}"
-                    Padding="18,10"/>
+            </StackPanel>
 
-        </StackPanel>
+            <!-- Botones de acción -->
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="12">
+
+                <Button Content="Cancelar"
+                        Command="{Binding CancelarCommand}"
+                        Padding="18,10"/>
+
+                <Button Content="Guardar"
+                        Command="{Binding GuardarCommand}"
+                        Padding="18,10"/>
+
+            </StackPanel>
+
+        </Grid>
 
     </Grid>
 
