@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ComAwaPot.ViewModels"
-             x:Class="ComAwaPot.Views.EditTomaView"
-             x:DataType="vm:EditTomaViewModel">
+             x:Class="ComAwaPot.Views.Tomas.NewTomaView"
+             x:DataType="vm:NewTomaViewModel">
 
     <UserControl.Styles>
 
@@ -25,23 +25,23 @@
         <StackPanel Grid.Row="0"
                     Spacing="4">
 
-            <TextBlock Text="Editar toma"
+            <TextBlock Text="Nueva toma"
                        FontSize="28"
                        FontWeight="Bold"/>
 
-            <TextBlock Text="Modifica los datos y la situación de la toma."
+            <TextBlock Text="Registra una nueva toma para esta persona."
                        FontSize="14"
                        Opacity="0.7"/>
 
         </StackPanel>
 
-        <!-- Datos -->
+        <!-- Formulario -->
         <Border Grid.Row="1"
                 Background="#18181B"
                 CornerRadius="8"
                 Padding="20">
 
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
                   ColumnDefinitions="*,*"
                   RowSpacing="14"
                   ColumnSpacing="16">
@@ -51,6 +51,7 @@
                            Text="Datos de la toma"
                            Classes="section-title"/>
 
+                <!-- Número de contrato -->
                 <StackPanel Grid.Row="1"
                             Grid.Column="0"
                             Spacing="5">
@@ -63,6 +64,23 @@
 
                 </StackPanel>
 
+                <!-- Tipo de tarifa -->
+				<StackPanel Grid.Row="3"
+				            Grid.ColumnSpan="2"
+				            Spacing="5">
+
+				    <TextBlock Text="Tipo de tarifa"
+				               Classes="field-label"/>
+
+				    <Button Content="{Binding TipoTarifa}"
+				            Command="{Binding AlternarTipoTarifaCommand}"
+				            HorizontalAlignment="Stretch"
+				            HorizontalContentAlignment="Center"
+				            Padding="12,10"/>
+
+				</StackPanel>
+
+                <!-- Estado -->
                 <StackPanel Grid.Row="1"
                             Grid.Column="1"
                             Spacing="5">
@@ -71,24 +89,26 @@
                                Classes="field-label"/>
 
                     <ComboBox SelectedItem="{Binding Estado}"
-                              ItemsSource="{Binding Source={x:Static vm:EditTomaViewModel.Estados}}"/>
+                              ItemsSource="{Binding Source={x:Static vm:NewTomaViewModel.Estados}}"/>
 
                 </StackPanel>
 
+                <!-- Calle -->
                 <StackPanel Grid.Row="2"
-                            Grid.ColumnSpan="2"
+                            Grid.Column="0"
                             Spacing="5">
 
                     <TextBlock Text="Calle"
                                Classes="field-label"/>
 
                     <TextBox Text="{Binding Calle}"
-                             PlaceholderText="Nombre de la calle"/>
+                             PlaceholderText="Calle"/>
 
                 </StackPanel>
 
-                <StackPanel Grid.Row="3"
-                            Grid.Column="0"
+                <!-- Número -->
+                <StackPanel Grid.Row="2"
+                            Grid.Column="1"
                             Spacing="5">
 
                     <TextBlock Text="Número"
@@ -99,30 +119,6 @@
 
                 </StackPanel>
 
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           Text="{Binding MensajeError}"
-                           Foreground="#F87171"
-                           TextWrapping="Wrap"
-                           VerticalAlignment="Center"/>
-
-
-                <!-- Tipo de tarifa -->
-				<StackPanel Grid.Row="4"
-				            Grid.Column="0"
-				            Spacing="5">
-
-				    <TextBlock Text="Tipo de tarifa"
-				               Classes="field-label"/>
-
-				    <Button Content="{Binding TipoTarifa}"
-				            Command="{Binding AlternarTipoTarifaCommand}"
-				            HorizontalAlignment="Left"
-				            HorizontalContentAlignment="Center"
-				            MinWidth="140"
-				            Padding="16,10"/>
-
-				</StackPanel>
             </Grid>
 
         </Border>
@@ -137,7 +133,7 @@
                     Command="{Binding CancelarCommand}"
                     Padding="18,10"/>
 
-            <Button Content="Guardar cambios"
+            <Button Content="Guardar"
                     Command="{Binding GuardarCommand}"
                     Padding="18,10"/>
 

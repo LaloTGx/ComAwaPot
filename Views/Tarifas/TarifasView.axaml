@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:models="using:ComAwaPot.Models"
              xmlns:vm="using:ComAwaPot.ViewModels"
-             xmlns:views="using:ComAwaPot.Views"
-             x:Class="ComAwaPot.Views.TarifasView"
+             xmlns:views="using:ComAwaPot.Views.Tarifas"
+             x:Class="ComAwaPot.Views.Tarifas.TarifasView"
              x:DataType="vm:TarifasViewModel">
 
     <Grid>

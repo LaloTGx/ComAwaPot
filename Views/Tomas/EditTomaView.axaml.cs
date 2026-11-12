@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ComAwaPot.Views;
+namespace ComAwaPot.Views.Tomas;
 
 public partial class EditTomaView : UserControl
 {

@@ -3,7 +3,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:ComAwaPot.ViewModels"
-        xmlns:views="using:ComAwaPot.Views"
+        xmlns:home="using:ComAwaPot.Views.Home"
+        xmlns:personas="using:ComAwaPot.Views.Personas"
+        xmlns:tomas="using:ComAwaPot.Views.Tomas"
+        xmlns:tarifas="using:ComAwaPot.Views.Tarifas"
         mc:Ignorable="d"
         d:DesignWidth="1100"
         d:DesignHeight="700"
@@ -45,31 +48,31 @@
     <Window.DataTemplates>
 
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
-            <views:HomeView />
+            <home:HomeView />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:PersonasViewModel}">
-            <views:PersonasView />
+            <personas:PersonasView />
         </DataTemplate>
 
         <DataTemplate DataType="vm:NewPersonaViewModel">
-            <views:NewPersonaView/>
+            <personas:NewPersonaView/>
         </DataTemplate>
 
         <DataTemplate DataType="vm:PersonaDetalleViewModel">
-            <views:PersonaDetalleView/>
+            <personas:PersonaDetalleView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:TomasViewModel}">
-            <views:TomasView/>
+            <tomas:TomasView/>
         </DataTemplate>
 
         <DataTemplate DataType="vm:NewTomaViewModel">
-            <views:NewTomaView />
+            <tomas:NewTomaView />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:TarifasViewModel}">
-            <views:TarifasView />
+            <tarifas:TarifasView />
         </DataTemplate>
 
     </Window.DataTemplates>
@@ -193,7 +196,7 @@
                     VerticalAlignment="Center"
                     Padding="32">
 
-                <views:NewPersonaView
+                <personas:NewPersonaView
                     DataContext="{Binding NewPersonaViewModel}"/>
 
             </Border>
@@ -213,7 +216,7 @@
 		            VerticalAlignment="Center"
 		            Padding="32">
 
-		        <views:EditPersonaView
+		        <personas:EditPersonaView
 		            DataContext="{Binding EditPersonaViewModel}"/>
 
 		    </Border>
@@ -233,7 +236,7 @@
 		            VerticalAlignment="Center"
 		            Padding="32">
 
-		        <views:NewTomaView
+		        <tomas:NewTomaView
 		            DataContext="{Binding NewTomaViewModel}"/>
 
 		    </Border>
@@ -251,7 +254,7 @@
 	                HorizontalAlignment="Center"
 	                VerticalAlignment="Center"
 	                Padding="32">
-	            <views:EditTomaView
+	            <tomas:EditTomaView
 	                DataContext="{Binding EditTomaViewModel}"/>
 	        </Border>
 	    </Grid>

@@ -1,7 +1,7 @@
  <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ComAwaPot.ViewModels"
-             x:Class="ComAwaPot.Views.NewTarifaView"
+             x:Class="ComAwaPot.Views.Tarifas.NewTarifaView"
              x:DataType="vm:TarifasViewModel">
 
     <UserControl.Styles>
