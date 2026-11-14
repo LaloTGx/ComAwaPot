@@ -80,7 +80,7 @@
 
                     <!-- Encabezados -->
                     <Grid Grid.Row="1"
-                          ColumnDefinitions="120,*,100,120,100"
+                          ColumnDefinitions="100,*,75,110,110,100"
                           Margin="14,8,14,0">
 
                         <TextBlock Grid.Column="0"
@@ -106,6 +106,12 @@
 						           HorizontalAlignment="Center"/>
 
                         <TextBlock Grid.Column="4"
+						           Text="Registro"
+						           FontWeight="Bold"
+						           Opacity="0.7"
+						           HorizontalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="5"
                                    Text="Estado"
                                    FontWeight="Bold"
                                    Opacity="0.7"
@@ -126,7 +132,7 @@
         Command="{Binding $parent[ItemsControl].DataContext.SeleccionarTomaCommand}"
         CommandParameter="{Binding}">
 
-    <Grid ColumnDefinitions="120,*,100,120,100">
+    <Grid ColumnDefinitions="100,*,75,110,110,100">
 
         <TextBlock Grid.Column="0"
                    Text="{Binding NumeroContrato}"
@@ -147,6 +153,11 @@
            VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="4"
+               Text="{Binding FechaRegistro, StringFormat='{}{0:dd/MM/yyyy}'}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Column="5"
                    Text="{Binding Estado}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
