@@ -136,6 +136,7 @@ public partial class NewPersonaViewModel : ObservableObject
             Calle = Calle.Trim(),
             NumExt = NumExt,
             Estado = Estado,
+            FechaRegistro = DateTime.Today,
             TipoTarifa = TipoTarifa
         };
 

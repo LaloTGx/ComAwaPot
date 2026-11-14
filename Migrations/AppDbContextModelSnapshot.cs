@@ -270,6 +270,9 @@ namespace ComAwaPot.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("NumExt")
                         .HasColumnType("INTEGER");
 

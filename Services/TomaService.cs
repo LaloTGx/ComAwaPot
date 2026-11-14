@@ -38,6 +38,8 @@ public class TomaService
             return null;
         }
 
+        toma.FechaRegistro = DateTime.Today;
+
         db.Tomas.Add(toma);
 
         // Crear historial inicial

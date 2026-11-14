@@ -56,6 +56,7 @@ public class PersonaService
             return false;
         }
 
+        toma.FechaRegistro = DateTime.Today;
         persona.Tomas.Add(toma);
 
         db.Personas.Add(persona);
